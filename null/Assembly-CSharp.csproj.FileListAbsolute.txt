@@ -1,0 +1,8 @@
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\AoTTG_Data\Managed\x64\Debug\Assembly-CSharp.dll
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\AoTTG_Data\Managed\x64\Debug\Assembly-CSharp.pdb
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\Assembly_CSharp\null\Assembly-CSharp.csproj.AssemblyReference.cache
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\Assembly_CSharp\null\Assembly-CSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\Assembly_CSharp\null\Assembly-CSharp.csproj.CoreCompileInputs.cache
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\Assembly_CSharp\null\Assembly-CSharp.csproj.CopyComplete
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\Assembly_CSharp\null\Assembly-CSharp.dll
+C:\Users\kevin\Documents\GitHub\AoTTG Vanilla\Assembly_CSharp\null\Assembly-CSharp.pdb
