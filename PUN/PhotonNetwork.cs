@@ -973,7 +973,7 @@ public static class PhotonNetwork
         if (customProperties == null)
         {
             customProperties = new Hashtable();
-            foreach (object key in Player.customProperties.Keys)
+            foreach (object key in Player.CustomProperties.Keys)
             {
                 customProperties[(string)key] = null;
             }
@@ -1173,7 +1173,7 @@ public static class PhotonNetwork
         {
             return false;
         }
-        if (!Player.isMasterClient)
+        if (!Player.IsMasterClient)
         {
             Debug.LogError("CloseConnection: Only the masterclient can kick another player.");
             return false;
@@ -1219,7 +1219,7 @@ public static class PhotonNetwork
     {
         if (VerifyCanUseNetwork())
         {
-            if (Player.isMasterClient || targetPlayerId == Player.ID)
+            if (Player.IsMasterClient || targetPlayerId == Player.ID)
             {
                 NetworkingPeer.DestroyPlayerObjects(targetPlayerId, localOnly: false);
             }
@@ -1246,7 +1246,7 @@ public static class PhotonNetwork
     {
         if (VerifyCanUseNetwork())
         {
-            if (!targetPlayer.isLocal && !IsMasterClient)
+            if (!targetPlayer.IsLocal && !IsMasterClient)
             {
                 Debug.LogError("Error; Only the MasterClient can call RemoveRPCs for other players.");
             }

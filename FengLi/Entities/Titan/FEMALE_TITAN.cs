@@ -1446,7 +1446,7 @@ public class FEMALE_TITAN : Photon.MonoBehaviour
 			{
 				getDown();
 			}
-			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, (string)photonView.owner.customProperties[PhotonPlayerProperty.name], t2: true, "Female Titan's ankle", dmg);
+			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, (string)photonView.owner.CustomProperties[PhotonPlayerProperty.name], t2: true, "Female Titan's ankle", dmg);
 			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("netShowDamage", photonView.owner, dmg);
 		}
 	}
@@ -1475,7 +1475,7 @@ public class FEMALE_TITAN : Photon.MonoBehaviour
 			{
 				getDown();
 			}
-			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, (string)photonView.owner.customProperties[PhotonPlayerProperty.name], t2: true, "Female Titan's ankle", dmg);
+			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, (string)photonView.owner.CustomProperties[PhotonPlayerProperty.name], t2: true, "Female Titan's ankle", dmg);
 			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("netShowDamage", photonView.owner, dmg);
 		}
 	}
@@ -1556,7 +1556,7 @@ public class FEMALE_TITAN : Photon.MonoBehaviour
 		}
 		else
 		{
-			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, (string)photonView.owner.customProperties[PhotonPlayerProperty.name], t2: true, "Female Titan's neck", speed);
+			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, (string)photonView.owner.CustomProperties[PhotonPlayerProperty.name], t2: true, "Female Titan's neck", speed);
 			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("netShowDamage", photonView.owner, speed);
 		}
 	}

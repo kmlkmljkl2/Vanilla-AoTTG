@@ -1,29 +1,30 @@
 public class PhotonMessageInfo
 {
-	private int timeInt;
+    private int TimeInt;
 
-	public PhotonPlayer sender;
+    public PhotonPlayer Sender;
 
-	public PhotonView photonView;
+    public PhotonView PhotonView;
 
-	public double timestamp => (double)(uint)timeInt / 1000.0;
 
-	public PhotonMessageInfo()
-	{
-		sender = PhotonNetwork.Player;
-		timeInt = (int)(PhotonNetwork.Time * 1000.0);
-		photonView = null;
-	}
+    public double Timestamp => (uint)TimeInt / 1000.0;
 
-	public PhotonMessageInfo(PhotonPlayer player, int timestamp, PhotonView view)
-	{
-		sender = player;
-		timeInt = timestamp;
-		photonView = view;
-	}
+    public PhotonMessageInfo()
+    {
+        Sender = PhotonNetwork.Player;
+        TimeInt = (int)(PhotonNetwork.Time * 1000.0);
+        PhotonView = null;
+    }
 
-	public override string ToString()
-	{
-		return string.Format("[PhotonMessageInfo: player='{1}' timestamp={0}]", timestamp, sender);
-	}
+    public PhotonMessageInfo(PhotonPlayer player, int timestamp, PhotonView view)
+    {
+        Sender = player;
+        TimeInt = timestamp;
+        PhotonView = view;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("[PhotonMessageInfo: player='{1}' timestamp={0}]", Timestamp, Sender);
+    }
 }

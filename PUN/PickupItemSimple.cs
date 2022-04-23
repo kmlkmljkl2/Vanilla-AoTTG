@@ -31,7 +31,7 @@ public class PickupItemSimple : Photon.MonoBehaviour
 	[RPC]
 	public void PunPickupSimple(PhotonMessageInfo msgInfo)
 	{
-		if (!SentPickup || !msgInfo.sender.isLocal || base.gameObject.GetActive())
+		if (!SentPickup || !msgInfo.Sender.IsLocal || base.gameObject.GetActive())
 		{
 		}
 		SentPickup = false;
@@ -40,7 +40,7 @@ public class PickupItemSimple : Photon.MonoBehaviour
 			Debug.Log("Ignored PU RPC, cause item is inactive. " + base.gameObject);
 			return;
 		}
-		double num = PhotonNetwork.Time - msgInfo.timestamp;
+		double num = PhotonNetwork.Time - msgInfo.Timestamp;
 		float num2 = SecondsBeforeRespawn - (float)num;
 		if (num2 > 0f)
 		{

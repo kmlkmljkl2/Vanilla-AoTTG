@@ -6,21 +6,22 @@ using UnityEngine;
 
 public class PhotonPlayer
 {
-    private int actorID = -1;
+    private int ActorID = -1;
 
-    private string nameField = string.Empty;
+    private string NameField = string.Empty;
 
-    public readonly bool isLocal;
+    public readonly bool IsLocal;
 
     public object TagObject;
 
-    public int ID => actorID;
+    public bool Muted;
+    public int ID => ActorID;
 
     public bool IsDead
     {
         get
         {
-            if (customProperties.ContainsKey(PhotonPlayerProperty.dead) && customProperties[PhotonPlayerProperty.dead] is bool State)
+            if (CustomProperties.ContainsKey(PhotonPlayerProperty.dead) && CustomProperties[PhotonPlayerProperty.dead] is bool State)
             {
                 return State;
             }
@@ -33,7 +34,7 @@ public class PhotonPlayer
     {
         get
         {
-            if (customProperties.ContainsKey(PhotonPlayerProperty.kills) && customProperties[PhotonPlayerProperty.kills] is int Kills)
+            if (CustomProperties.ContainsKey(PhotonPlayerProperty.kills) && CustomProperties[PhotonPlayerProperty.kills] is int Kills)
             {
                 return Kills;
             }
@@ -45,7 +46,7 @@ public class PhotonPlayer
     {
         get
         {
-            if (customProperties.ContainsKey(PhotonPlayerProperty.deaths) && customProperties[PhotonPlayerProperty.deaths] is int Deaths)
+            if (CustomProperties.ContainsKey(PhotonPlayerProperty.deaths) && CustomProperties[PhotonPlayerProperty.deaths] is int Deaths)
             {
                 return Deaths;
             }
@@ -57,7 +58,7 @@ public class PhotonPlayer
     {
         get
         {
-            if (customProperties.ContainsKey(PhotonPlayerProperty.max_dmg) && customProperties[PhotonPlayerProperty.max_dmg] is int HighestDmg)
+            if (CustomProperties.ContainsKey(PhotonPlayerProperty.max_dmg) && CustomProperties[PhotonPlayerProperty.max_dmg] is int HighestDmg)
             {
                 return HighestDmg;
             }
@@ -69,7 +70,7 @@ public class PhotonPlayer
     {
         get
         {
-            if(customProperties.ContainsKey(PhotonPlayerProperty.total_dmg) &&customProperties[PhotonPlayerProperty.total_dmg] is int TotalDmg)
+            if(CustomProperties.ContainsKey(PhotonPlayerProperty.total_dmg) &&CustomProperties[PhotonPlayerProperty.total_dmg] is int TotalDmg)
             {
                 return TotalDmg;
             }
@@ -80,7 +81,7 @@ public class PhotonPlayer
     {
         get
         {
-            if(customProperties.ContainsKey(PhotonPlayerProperty.name) && customProperties[PhotonPlayerProperty.name] is string name && name.RemoveHex().Trim() != "")
+            if(CustomProperties.ContainsKey(PhotonPlayerProperty.name) && CustomProperties[PhotonPlayerProperty.name] is string name && name.RemoveHex().Trim() != "")
             {
                 return name.RemoveHex();
             }
@@ -94,14 +95,14 @@ public class PhotonPlayer
     {
         get
         {
-            return customProperties.ContainsKey(PhotonPlayerProperty.isTitan) && customProperties[PhotonPlayerProperty.isTitan] is int value && value == 2;
+            return CustomProperties.ContainsKey(PhotonPlayerProperty.isTitan) && CustomProperties[PhotonPlayerProperty.isTitan] is int value && value == 2;
         }
     }
     public bool IsAhss
     {
         get
         {
-            return customProperties.ContainsKey(PhotonPlayerProperty.isTitan) && customProperties[PhotonPlayerProperty.isTitan] is int value && value == 3;
+            return CustomProperties.ContainsKey(PhotonPlayerProperty.isTitan) && CustomProperties[PhotonPlayerProperty.isTitan] is int value && value == 3;
         }
     }
 
@@ -109,7 +110,7 @@ public class PhotonPlayer
     {
         get
         {
-            if( customProperties.ContainsKey(PhotonPlayerProperty.team) && customProperties[PhotonPlayerProperty.team] is int TeamId)
+            if( CustomProperties.ContainsKey(PhotonPlayerProperty.team) && CustomProperties[PhotonPlayerProperty.team] is int TeamId)
             {
                 return TeamId;
             }
@@ -120,31 +121,31 @@ public class PhotonPlayer
     {
         get
         {
-            return nameField;
+            return NameField;
         }
         set
         {
-            if (!isLocal)
+            if (!IsLocal)
             {
                 Debug.LogError("Error: Cannot change the name of a remote player!");
             }
             else
             {
-                nameField = value;
+                NameField = value;
             }
         }
     }
 
-    public bool isMasterClient => PhotonNetwork.NetworkingPeer.mMasterClient == this;
+    public bool IsMasterClient => PhotonNetwork.NetworkingPeer.mMasterClient == this;
 
-    public Hashtable customProperties { get; private set; }
+    public Hashtable CustomProperties { get; private set; }
 
-    public Hashtable allProperties
+    public Hashtable AllProperties
     {
         get
         {
             Hashtable hashtable = new Hashtable();
-            hashtable.Merge(customProperties);
+            hashtable.Merge(CustomProperties);
             hashtable[byte.MaxValue] = PhotonName;
             return hashtable;
         }
@@ -152,17 +153,17 @@ public class PhotonPlayer
 
     public PhotonPlayer(bool isLocal, int actorID, string name)
     {
-        customProperties = new Hashtable();
-        this.isLocal = isLocal;
-        this.actorID = actorID;
-        nameField = name;
+        CustomProperties = new Hashtable();
+        this.IsLocal = isLocal;
+        this.ActorID = actorID;
+        NameField = name;
     }
 
     protected internal PhotonPlayer(bool isLocal, int actorID, Hashtable properties)
     {
-        customProperties = new Hashtable();
-        this.isLocal = isLocal;
-        this.actorID = actorID;
+        CustomProperties = new Hashtable();
+        this.IsLocal = isLocal;
+        this.ActorID = actorID;
         InternalCacheProperties(properties);
     }
 
@@ -183,11 +184,11 @@ public class PhotonPlayer
 
             string text2 = text;
             text = text2 + "[ffffff]#" + ID + " ";
-            if (isLocal)
+            if (IsLocal)
             {
                 text += "> ";
             }
-            if (isMasterClient)
+            if (IsMasterClient)
             {
                 text += "M ";
             }
@@ -232,26 +233,26 @@ public class PhotonPlayer
     }
     internal void InternalChangeLocalID(int newID)
     {
-        if (!isLocal)
+        if (!IsLocal)
         {
             Debug.LogError("ERROR You should never change PhotonPlayer IDs!");
         }
         else
         {
-            actorID = newID;
+            ActorID = newID;
         }
     }
 
     internal void InternalCacheProperties(Hashtable properties)
     {
-        if (properties != null && properties.Count != 0 && !customProperties.Equals(properties))
+        if (properties != null && properties.Count != 0 && !CustomProperties.Equals(properties))
         {
             if (properties.ContainsKey(byte.MaxValue))
             {
-                nameField = (string)properties[byte.MaxValue];
+                NameField = (string)properties[byte.MaxValue];
             }
-            customProperties.MergeStringKeys(properties);
-            customProperties.StripKeysWithNullValues();
+            CustomProperties.MergeStringKeys(properties);
+            CustomProperties.StripKeysWithNullValues();
         }
     }
 
@@ -259,12 +260,12 @@ public class PhotonPlayer
     {
         if (propertiesToSet != null)
         {
-            customProperties.MergeStringKeys(propertiesToSet);
-            customProperties.StripKeysWithNullValues();
+            CustomProperties.MergeStringKeys(propertiesToSet);
+            CustomProperties.StripKeysWithNullValues();
             Hashtable actorProperties = propertiesToSet.StripToStringKeys();
-            if (actorID > 0 && !PhotonNetwork.OfflineMode)
+            if (ActorID > 0 && !PhotonNetwork.OfflineMode)
             {
-                PhotonNetwork.NetworkingPeer.OpSetCustomPropertiesOfActor(actorID, actorProperties, broadcast: true, 0);
+                PhotonNetwork.NetworkingPeer.OpSetCustomPropertiesOfActor(ActorID, actorProperties, broadcast: true, 0);
             }
             NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonPlayerPropertiesChanged, this, propertiesToSet);
         }
@@ -329,13 +330,13 @@ public class PhotonPlayer
     {
         if (string.IsNullOrEmpty(PhotonName))
         {
-            return string.Format("#{0:00}{1}", ID, (!isMasterClient) ? string.Empty : "(master)");
+            return string.Format("#{0:00}{1}", ID, (!IsMasterClient) ? string.Empty : "(master)");
         }
-        return string.Format("'{0}'{1}", PhotonName, (!isMasterClient) ? string.Empty : "(master)");
+        return string.Format("'{0}'{1}", PhotonName, (!IsMasterClient) ? string.Empty : "(master)");
     }
 
     public string ToStringFull()
     {
-        return $"#{ID:00} '{PhotonName}' {customProperties.ToStringFull()}";
+        return $"#{ID:00} '{PhotonName}' {CustomProperties.ToStringFull()}";
     }
 }

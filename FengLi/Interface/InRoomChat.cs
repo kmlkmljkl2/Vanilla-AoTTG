@@ -50,22 +50,22 @@ public partial class InRoomChat : Photon.MonoBehaviour
 					GUI.FocusControl(string.Empty);
 					return;
 				}
-				if (inputLine == "/restart" && PhotonNetwork.IsMasterClient)
-				{
+				if(inputLine.StartsWith("/"))
+                {
+					HandleCommand(inputLine.Remove(0, 1).Split(' '));
 					inputLine = string.Empty;
 					GUI.FocusControl(string.Empty);
-					GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().restartGame();
 					return;
-				}
+                }
 				if (inputLine.Length > 7 && inputLine.Substring(0, 7) == "/kick #")
 				{
 					if (inputLine.Remove(0, 7) == PhotonNetwork.MasterClient.ID.ToString())
 					{
-						GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE("error:can't kick master client.");
+						GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("error:can't kick master client.");
 					}
 					else if (inputLine.Remove(0, 7) == PhotonNetwork.Player.ID.ToString())
 					{
-						GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE("error:can't kick yourself.");
+						GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("error:can't kick yourself.");
 					}
 					else
 					{
@@ -81,7 +81,7 @@ public partial class InRoomChat : Photon.MonoBehaviour
 						}
 						if (!flag)
 						{
-							GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE("error:no such player.");
+							GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("error:no such player.");
 						}
 						else
 						{
@@ -126,11 +126,6 @@ public partial class InRoomChat : Photon.MonoBehaviour
 		inputLine = GUILayout.TextField(inputLine);
 		GUILayout.EndHorizontal();
 		GUILayout.EndArea();
-	}
-
-	public void addLINE(string newLine)
-	{
-		messages.Add(newLine);
 	}
 
 	public void AddLine(string newLine)

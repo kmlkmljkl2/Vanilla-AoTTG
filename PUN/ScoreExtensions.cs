@@ -20,7 +20,7 @@ internal static class ScoreExtensions
 
 	public static int GetScore(this PhotonPlayer player)
 	{
-		if (player.customProperties.TryGetValue("score", out var value))
+		if (player.CustomProperties.TryGetValue("score", out var value))
 		{
 			return (int)value;
 		}

@@ -10,8 +10,6 @@ public class KickState
 
 	private int kickCount;
 
-	private ArrayList kickers2;
-
 	public void init(string n)
 	{
 		name = n;

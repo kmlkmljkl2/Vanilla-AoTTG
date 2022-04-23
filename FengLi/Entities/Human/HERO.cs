@@ -363,20 +363,20 @@ public partial class HERO : Photon.MonoBehaviour
             myNetWorkName.transform.parent = gameObject.GetComponent<UIReferArray>().panels[0].transform;
             myNetWorkName.transform.localScale = new Vector3(14f, 14f, 14f);
             myNetWorkName.GetComponent<UILabel>().text = string.Empty;
-            if ((int)base.photonView.owner.customProperties[PhotonPlayerProperty.team] == 2)
+            if ((int)base.photonView.owner.CustomProperties[PhotonPlayerProperty.team] == 2)
             {
                 myNetWorkName.GetComponent<UILabel>().text = "[FF0000]AHSS\n[FFFFFF]";
             }
-            string text = (string)base.photonView.owner.customProperties[PhotonPlayerProperty.guildName];
+            string text = (string)base.photonView.owner.CustomProperties[PhotonPlayerProperty.guildName];
             if (text != string.Empty)
             {
                 UILabel component = myNetWorkName.GetComponent<UILabel>();
                 string text2 = component.text;
-                component.text = text2 + "[FFFF00]" + text + "\n[FFFFFF]" + (string)base.photonView.owner.customProperties[PhotonPlayerProperty.name];
+                component.text = text2 + "[FFFF00]" + text + "\n[FFFFFF]" + (string)base.photonView.owner.CustomProperties[PhotonPlayerProperty.name];
             }
             else
             {
-                myNetWorkName.GetComponent<UILabel>().text += (string)base.photonView.owner.customProperties[PhotonPlayerProperty.name];
+                myNetWorkName.GetComponent<UILabel>().text += (string)base.photonView.owner.CustomProperties[PhotonPlayerProperty.name];
             }
         }
         if (IN_GAME_MAIN_CAMERA.gametype != 0 && !base.photonView.isMine)
@@ -444,7 +444,7 @@ public partial class HERO : Photon.MonoBehaviour
                     PhotonPlayer[] playerList = PhotonNetwork.PlayerList;
                     foreach (PhotonPlayer photonPlayer in playerList)
                     {
-                        if ((int)photonPlayer.customProperties[PhotonPlayerProperty.isTitan] == 1 && ((string)photonPlayer.customProperties[PhotonPlayerProperty.character]).ToUpper() == "EREN")
+                        if ((int)photonPlayer.CustomProperties[PhotonPlayerProperty.isTitan] == 1 && ((string)photonPlayer.CustomProperties[PhotonPlayerProperty.character]).ToUpper() == "EREN")
                         {
                             num++;
                         }

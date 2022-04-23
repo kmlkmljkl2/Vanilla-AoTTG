@@ -2105,7 +2105,7 @@ public class TITAN : Photon.MonoBehaviour
 				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.deaths,
-					(int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
+					(int)PhotonNetwork.Player.CustomProperties[PhotonPlayerProperty.deaths] + 1
 				} });
 			}
 		}
@@ -2202,7 +2202,7 @@ public class TITAN : Photon.MonoBehaviour
 				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.deaths,
-					(int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
+					(int)PhotonNetwork.Player.CustomProperties[PhotonPlayerProperty.deaths] + 1
 				} });
 			}
 		}
@@ -3174,7 +3174,7 @@ public class TITAN : Photon.MonoBehaviour
 			netDie();
 			if (nonAI)
 			{
-				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().titanGetKill(photonView.owner, speed, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
+				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().titanGetKill(photonView.owner, speed, (string)PhotonNetwork.Player.CustomProperties[PhotonPlayerProperty.name]);
 			}
 			else
 			{
@@ -3203,7 +3203,7 @@ public class TITAN : Photon.MonoBehaviour
 				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.deaths,
-					(int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
+					(int)PhotonNetwork.Player.CustomProperties[PhotonPlayerProperty.deaths] + 1
 				} });
 			}
 			dieAnimation();
@@ -3215,7 +3215,7 @@ public class TITAN : Photon.MonoBehaviour
 		netDie();
 		if (nonAI)
 		{
-			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, string.Empty, t2: true, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
+			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, string.Empty, t2: true, (string)PhotonNetwork.Player.CustomProperties[PhotonPlayerProperty.name]);
 		}
 		GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().needChooseSide = true;
 		GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().justSuicide = true;

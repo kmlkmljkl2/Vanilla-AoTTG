@@ -137,7 +137,7 @@ public partial class FengGameManagerMKII
         Damage = Mathf.Max(10, Damage);
         base.photonView.RPC("netShowDamage", player, Damage);
         base.photonView.RPC("oneTitanDown", PhotonTargets.MasterClient, name, false);
-        sendKillInfo(t1: false, (string)player.customProperties[PhotonPlayerProperty.name], t2: true, name, Damage);
+        sendKillInfo(t1: false, (string)player.CustomProperties[PhotonPlayerProperty.name], t2: true, name, Damage);
         playerKillInfoUpdate(player, Damage);
     }
 
@@ -354,21 +354,25 @@ public partial class FengGameManagerMKII
     }
 
     [RPC]
-    private void Chat(string content, string sender)
+    private void Chat(string content, string sender, PhotonMessageInfo info)
     {
-        if (content.Length > 7 && content.Substring(0, 7) == "/kick #")
+        if(info != null && !info.Sender.IsLocal && info.Sender.Muted)
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                kickPlayer(content.Remove(0, 7), sender);
-            }
             return;
         }
+        //if (content.Length > 7 && content.Substring(0, 7) == "/kick #")
+        //{
+        //    if (PhotonNetwork.IsMasterClient)
+        //    {
+        //        KickPlayer(content.Remove(0, 7), sender);
+        //    }
+        //    return;
+        //}
         if (sender != string.Empty)
         {
             content = sender + ":" + content;
         }
-        GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE(content);
+        GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine(content);
     }
 
     [RPC]

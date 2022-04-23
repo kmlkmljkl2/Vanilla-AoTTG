@@ -280,7 +280,7 @@ public class PVPcheckPoint : Photon.MonoBehaviour
 				if (GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().checkpoint != base.gameObject)
 				{
 					GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().checkpoint = base.gameObject;
-					GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE("<color=#A8FF24>Respawn point changed to point" + id + "</color>");
+					GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("<color=#A8FF24>Respawn point changed to point" + id + "</color>");
 				}
 				break;
 			}
@@ -297,7 +297,7 @@ public class PVPcheckPoint : Photon.MonoBehaviour
 				if (GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().checkpoint != base.gameObject)
 				{
 					GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().checkpoint = base.gameObject;
-					GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE("<color=#A8FF24>Respawn point changed to point" + id + "</color>");
+					GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("<color=#A8FF24>Respawn point changed to point" + id + "</color>");
 				}
 				break;
 			}

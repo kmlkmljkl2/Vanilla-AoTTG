@@ -5,7 +5,7 @@ internal static class TeamExtensions
 {
 	public static PunTeams.Team GetTeam(this PhotonPlayer player)
 	{
-		if (player.customProperties.TryGetValue("team", out var value))
+		if (player.CustomProperties.TryGetValue("team", out var value))
 		{
 			return (PunTeams.Team)(byte)value;
 		}

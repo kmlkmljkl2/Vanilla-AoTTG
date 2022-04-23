@@ -74,7 +74,7 @@ public class TriggerColliderWeapon : MonoBehaviour
 			else if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && !component.transform.root.GetComponent<HERO>().HasDied() && !component.transform.root.GetComponent<HERO>().isGrabbed)
 			{
 				component.transform.root.GetComponent<HERO>().markDie();
-				component.transform.root.GetComponent<HERO>().photonView.RPC("netDie", PhotonTargets.All, (component.transform.root.position - base.transform.position).normalized * b * 1000f + Vector3.up * 50f, false, base.transform.root.gameObject.GetPhotonView().viewID, PhotonView.Find(base.transform.root.gameObject.GetPhotonView().viewID).owner.customProperties[PhotonPlayerProperty.name], false);
+				component.transform.root.GetComponent<HERO>().photonView.RPC("netDie", PhotonTargets.All, (component.transform.root.position - base.transform.position).normalized * b * 1000f + Vector3.up * 50f, false, base.transform.root.gameObject.GetPhotonView().viewID, PhotonView.Find(base.transform.root.gameObject.GetPhotonView().viewID).owner.CustomProperties[PhotonPlayerProperty.name], false);
 			}
 		}
 		else if (other.gameObject.tag == "titanneck")

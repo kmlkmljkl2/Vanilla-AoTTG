@@ -6,26 +6,30 @@ using UnityEngine;
 
 public partial class InRoomChat
 {
+    public void AddError(string str)
+    {
+        AddLine($"<color=red>ERROR</color> => {str}");
+    }
     public void HandleCommand(string[] Command)
     {
-        switch(Command[0].ToLower().Remove(0,1))
+
+        switch(Command[0].ToLower())
         {
             case "restart":
                 if (!PhotonNetwork.IsMasterClient)
                 {
-                    //Logs
+                    AddError("Not Masterclient, cannot restart");
                     break;
                 }
                 FengGameManagerMKII.Instance.restartGame();
-                this.addLINE("test");
-               // GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().restartGame();
                 break;
             case "kick":
-                if(!PhotonNetwork.IsMasterClient || Command.Length <= 1)
+                if (!PhotonNetwork.IsMasterClient || Command.Length <= 1 || !int.TryParse(Command[1], out int Id) || !PhotonNetwork.NetworkingPeer.mActors.ContainsKey(Id))
                 {
-                    //Log
+                    AddError("Not Masterclient or Id did not exist!");
                     break;
-                    }
+                }
+                PhotonNetwork.CloseConnection(PhotonNetwork.NetworkingPeer.mActors[Id]);
                 break;
 
 

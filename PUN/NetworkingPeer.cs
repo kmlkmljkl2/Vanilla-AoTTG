@@ -449,7 +449,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 	private void RemovePlayer(int ID, PhotonPlayer player)
 	{
 		mActors.Remove(ID);
-		if (!player.isLocal)
+		if (!player.IsLocal)
 		{
 			RebuildPlayerListCopies();
 		}
@@ -463,7 +463,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		PhotonPlayer[] array = mPlayerListCopy;
 		foreach (PhotonPlayer photonPlayer in array)
 		{
-			if (!photonPlayer.isLocal)
+			if (!photonPlayer.IsLocal)
 			{
 				list.Add(photonPlayer);
 			}
@@ -676,7 +676,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 	{
 		if (PhotonNetwork.Player != null)
 		{
-			return PhotonNetwork.Player.allProperties;
+			return PhotonNetwork.Player.AllProperties;
 		}
 		ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 		hashtable[byte.MaxValue] = PlayerName;
@@ -1404,7 +1404,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			DoInstantiate((ExitGames.Client.Photon.Hashtable)photonEvent[245], photonPlayer, null);
 			break;
 		case 203:
-			if (photonPlayer == null || !photonPlayer.isMasterClient)
+			if (photonPlayer == null || !photonPlayer.IsMasterClient)
 			{
 				Debug.LogError(string.Concat("Error: Someone else(", photonPlayer, ") then the masterserver requests a disconnect!"));
 			}
@@ -1931,7 +1931,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		int instantiationId = photonView.instantiationId;
 		if (!localOnly)
 		{
-			if (!photonView.isMine && (!mLocalActor.isMasterClient || mActors.ContainsKey(ownerActorNr)))
+			if (!photonView.isMine && (!mLocalActor.IsMasterClient || mActors.ContainsKey(ownerActorNr)))
 			{
 				Debug.LogError("Failed to 'network-remove' GameObject. Client is neither owner nor masterClient taking over for owner who left: " + photonView);
 				return;
@@ -2120,7 +2120,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	public void CleanRpcBufferIfMine(PhotonView view)
 	{
-		if (view.ownerId != mLocalActor.ID && !mLocalActor.isMasterClient)
+		if (view.ownerId != mLocalActor.ID && !mLocalActor.IsMasterClient)
 		{
 			Debug.LogError(string.Concat("Cannot remove cached RPCs on a PhotonView thats not ours! ", view.owner, " scene: ", view.isSceneView));
 		}

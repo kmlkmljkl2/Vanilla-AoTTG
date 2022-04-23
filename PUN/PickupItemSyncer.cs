@@ -56,13 +56,13 @@ public class PickupItemSyncer : Photon.MonoBehaviour
 	[RPC]
 	public void RequestForPickupTimes(PhotonMessageInfo msgInfo)
 	{
-		if (msgInfo.sender == null)
+		if (msgInfo.Sender == null)
 		{
 			Debug.LogError("Unknown player asked for PickupItems");
 		}
 		else
 		{
-			SendPickedUpItems(msgInfo.sender);
+			SendPickedUpItems(msgInfo.Sender);
 		}
 	}
 
