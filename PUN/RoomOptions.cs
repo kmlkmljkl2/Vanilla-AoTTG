@@ -8,7 +8,7 @@ public class RoomOptions
 
 	public int maxPlayers;
 
-	public bool cleanupCacheOnLeave = PhotonNetwork.autoCleanUpPlayerObjects;
+	public bool cleanupCacheOnLeave = PhotonNetwork.AutoCleanUpPlayerObjects;
 
 	public Hashtable customRoomProperties;
 

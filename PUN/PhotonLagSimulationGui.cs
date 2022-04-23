@@ -13,7 +13,7 @@ public class PhotonLagSimulationGui : MonoBehaviour
 
 	public void Start()
 	{
-		Peer = PhotonNetwork.networkingPeer;
+		Peer = PhotonNetwork.NetworkingPeer;
 	}
 
 	public void OnGUI()

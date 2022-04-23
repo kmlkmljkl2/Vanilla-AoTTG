@@ -203,9 +203,9 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			Debug.LogWarning("Ignoring Connect() because app gets closed. If this is an error, check PhotonHandler.AppQuits.");
 			return false;
 		}
-		if (PhotonNetwork.connectionStateDetailed == global::PeerState.Disconnecting)
+		if (PhotonNetwork.ConnectionStateDetailed == global::PeerState.Disconnecting)
 		{
-			Debug.LogError("Connect() failed. Can't connect while disconnecting (still). Current state: " + PhotonNetwork.connectionStateDetailed);
+			Debug.LogError("Connect() failed. Can't connect while disconnecting (still). Current state: " + PhotonNetwork.ConnectionStateDetailed);
 			return false;
 		}
 		bool flag = base.Connect(serverAddress, string.Empty);
@@ -347,7 +347,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 	private void LeftRoomCleanup()
 	{
 		bool flag = mRoomToGetInto != null;
-		bool flag2 = ((mRoomToGetInto == null) ? PhotonNetwork.autoCleanUpPlayerObjects : mRoomToGetInto.autoCleanUp);
+		bool flag2 = ((mRoomToGetInto == null) ? PhotonNetwork.AutoCleanUpPlayerObjects : mRoomToGetInto.autoCleanUp);
 		hasSwitchedMC = false;
 		mRoomToGetInto = null;
 		mActors = new Dictionary<int, PhotonPlayer>();
@@ -363,7 +363,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		if (flag2)
 		{
 			LocalCleanupAnythingInstantiated(destroyInstantiatedGameObjects: true);
-			PhotonNetwork.manuallyAllocatedViewIds = new List<int>();
+			PhotonNetwork.ManuallyAllocatedViewIds = new List<int>();
 		}
 		if (flag)
 		{
@@ -387,8 +387,8 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		}
 		tempInstantiationData.Clear();
 		instantiatedObjects = new Dictionary<int, GameObject>();
-		PhotonNetwork.lastUsedViewSubId = 0;
-		PhotonNetwork.lastUsedViewSubIdStatic = 0;
+		PhotonNetwork.LastUsedViewSubId = 0;
+		PhotonNetwork.LastUsedViewSubIdStatic = 0;
 	}
 
 	private void ReadoutProperties(ExitGames.Client.Photon.Hashtable gameProperties, ExitGames.Client.Photon.Hashtable pActorProperties, int targetActorNr)
@@ -397,7 +397,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		{
 			mCurrentGame.CacheProperties(gameProperties);
 			SendMonoMessage(PhotonNetworkingMessage.OnPhotonCustomRoomPropertiesChanged, gameProperties);
-			if (PhotonNetwork.automaticallySyncScene)
+			if (PhotonNetwork.AutomaticallySyncScene)
 			{
 				LoadLevelIfSynced();
 			}
@@ -674,9 +674,9 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	private ExitGames.Client.Photon.Hashtable GetLocalActorProperties()
 	{
-		if (PhotonNetwork.player != null)
+		if (PhotonNetwork.Player != null)
 		{
-			return PhotonNetwork.player.allProperties;
+			return PhotonNetwork.Player.allProperties;
 		}
 		ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 		hashtable[byte.MaxValue] = PlayerName;
@@ -748,7 +748,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	public override bool OpRaiseEvent(byte eventCode, object customEventContent, bool sendReliable, RaiseEventOptions raiseEventOptions)
 	{
-		if (PhotonNetwork.offlineMode)
+		if (PhotonNetwork.OfflineMode)
 		{
 			return false;
 		}
@@ -762,7 +762,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	public void OnOperationResponse(OperationResponse operationResponse)
 	{
-		if (PhotonNetwork.networkingPeer.State == global::PeerState.Disconnecting)
+		if (PhotonNetwork.NetworkingPeer.State == global::PeerState.Disconnecting)
 		{
 			if (PhotonNetwork.logLevel >= PhotonLogLevel.Informational)
 			{
@@ -855,7 +855,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			}
 			else if (server == ServerConnection.MasterServer)
 			{
-				if (PhotonNetwork.autoJoinLobby)
+				if (PhotonNetwork.AutoJoinLobby)
 				{
 					State = global::PeerState.Authenticated;
 					OpJoinLobby(lobby);
@@ -1232,7 +1232,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			break;
 		case StatusCode.QueueIncomingReliableWarning:
 		case StatusCode.QueueIncomingUnreliableWarning:
-			Debug.Log(string.Concat(statusCode, ". This client buffers many incoming messages. This is OK temporarily. With lots of these warnings, check if you send too much or execute messages too slow. ", (!PhotonNetwork.isMessageQueueRunning) ? "Your isMessageQueueRunning is false. This can cause the issue temporarily." : string.Empty));
+			Debug.Log(string.Concat(statusCode, ". This client buffers many incoming messages. This is OK temporarily. With lots of these warnings, check if you send too much or execute messages too slow. ", (!PhotonNetwork.IsMessageQueueRunning) ? "Your isMessageQueueRunning is false. This can cause the issue temporarily." : string.Empty));
 			break;
 		default:
 			Debug.LogError("Received unknown status code: " + statusCode);
@@ -1311,7 +1311,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			}
 			if (mQueuePosition == 0)
 			{
-				if (PhotonNetwork.autoJoinLobby)
+				if (PhotonNetwork.AutoJoinLobby)
 				{
 					State = global::PeerState.Authenticated;
 					OpJoinLobby(lobby);
@@ -1827,7 +1827,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 					}
 				}
 			}
-			Debug.LogError(string.Format("DoInstantiate re-defines a GameObject. Destroying old entry! New: '{0}' (instantiationID: {1}) Old: {3}. PhotonViews on old: {4}. instantiatedObjects.Count: {2}. PhotonNetwork.lastUsedViewSubId: {5} PhotonNetwork.lastUsedViewSubIdStatic: {6} this.photonViewList.Count {7}.)", gameObject, num, instantiatedObjects.Count, gameObject2, text2, PhotonNetwork.lastUsedViewSubId, PhotonNetwork.lastUsedViewSubIdStatic, photonViewList.Count));
+			Debug.LogError(string.Format("DoInstantiate re-defines a GameObject. Destroying old entry! New: '{0}' (instantiationID: {1}) Old: {3}. PhotonViews on old: {4}. instantiatedObjects.Count: {2}. PhotonNetwork.lastUsedViewSubId: {5} PhotonNetwork.lastUsedViewSubIdStatic: {6} this.photonViewList.Count {7}.)", gameObject, num, instantiatedObjects.Count, gameObject2, text2, PhotonNetwork.LastUsedViewSubId, PhotonNetwork.LastUsedViewSubIdStatic, photonViewList.Count));
 			RemoveInstantiatedGO(gameObject2, localOnly: true);
 		}
 		instantiatedObjects.Add(num, gameObject);
@@ -2415,7 +2415,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		if (loadingLevelAndPausedNetwork)
 		{
 			loadingLevelAndPausedNetwork = false;
-			PhotonNetwork.isMessageQueueRunning = true;
+			PhotonNetwork.IsMessageQueueRunning = true;
 		}
 		List<int> list = new List<int>();
 		foreach (KeyValuePair<int, PhotonView> photonView in photonViewList)
@@ -2439,7 +2439,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	public void RunViewUpdate()
 	{
-		if (!PhotonNetwork.connected || PhotonNetwork.offlineMode || mActors == null || mActors.Count <= 1)
+		if (!PhotonNetwork.Connected || PhotonNetwork.OfflineMode || mActors == null || mActors.Count <= 1)
 		{
 			return;
 		}
@@ -2780,7 +2780,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			if (one is Vector3 target)
 			{
 				Vector3 second = (Vector3)two;
-				if (target.AlmostEquals(second, PhotonNetwork.precisionForVectorSynchronization))
+				if (target.AlmostEquals(second, PhotonNetwork.PrecisionForVectorSynchronization))
 				{
 					return true;
 				}
@@ -2788,7 +2788,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			else if (one is Vector2 target2)
 			{
 				Vector2 second2 = (Vector2)two;
-				if (target2.AlmostEquals(second2, PhotonNetwork.precisionForVectorSynchronization))
+				if (target2.AlmostEquals(second2, PhotonNetwork.PrecisionForVectorSynchronization))
 				{
 					return true;
 				}
@@ -2796,7 +2796,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			else if (one is Quaternion target3)
 			{
 				Quaternion second3 = (Quaternion)two;
-				if (target3.AlmostEquals(second3, PhotonNetwork.precisionForQuaternionSynchronization))
+				if (target3.AlmostEquals(second3, PhotonNetwork.PrecisionForQuaternionSynchronization))
 				{
 					return true;
 				}
@@ -2804,7 +2804,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			else if (one is float target4)
 			{
 				float second4 = (float)two;
-				if (target4.AlmostEquals(second4, PhotonNetwork.precisionForFloatSynchronization))
+				if (target4.AlmostEquals(second4, PhotonNetwork.PrecisionForFloatSynchronization))
 				{
 					return true;
 				}
@@ -2836,11 +2836,11 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	protected internal void LoadLevelIfSynced()
 	{
-		if (!PhotonNetwork.automaticallySyncScene || PhotonNetwork.isMasterClient || PhotonNetwork.room == null || !PhotonNetwork.room.customProperties.ContainsKey("curScn"))
+		if (!PhotonNetwork.AutomaticallySyncScene || PhotonNetwork.IsMasterClient || PhotonNetwork.Room == null || !PhotonNetwork.Room.customProperties.ContainsKey("curScn"))
 		{
 			return;
 		}
-		object obj = PhotonNetwork.room.customProperties["curScn"];
+		object obj = PhotonNetwork.Room.customProperties["curScn"];
 		if (obj is int)
 		{
 			if (Application.loadedLevel != (int)obj)
@@ -2856,7 +2856,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	protected internal void SetLevelInPropsIfSynced(object levelId)
 	{
-		if (!PhotonNetwork.automaticallySyncScene || !PhotonNetwork.isMasterClient || PhotonNetwork.room == null)
+		if (!PhotonNetwork.AutomaticallySyncScene || !PhotonNetwork.IsMasterClient || PhotonNetwork.Room == null)
 		{
 			return;
 		}
@@ -2865,9 +2865,9 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			Debug.LogError("Parameter levelId can't be null!");
 			return;
 		}
-		if (PhotonNetwork.room.customProperties.ContainsKey("curScn"))
+		if (PhotonNetwork.Room.customProperties.ContainsKey("curScn"))
 		{
-			object obj = PhotonNetwork.room.customProperties["curScn"];
+			object obj = PhotonNetwork.Room.customProperties["curScn"];
 			if ((obj is int && Application.loadedLevel == (int)obj) || (obj is string && Application.loadedLevelName.Equals((string)obj)))
 			{
 				return;
@@ -2886,7 +2886,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		{
 			Debug.LogError("Parameter levelId must be int or string!");
 		}
-		PhotonNetwork.room.SetCustomProperties(hashtable);
+		PhotonNetwork.Room.SetCustomProperties(hashtable);
 		SendOutgoingCommands();
 	}
 

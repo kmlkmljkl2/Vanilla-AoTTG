@@ -5,7 +5,7 @@ public class BTN_RESULT_TO_MAIN : MonoBehaviour
 	private void OnClick()
 	{
 		Time.timeScale = 1f;
-		if (PhotonNetwork.connected)
+		if (PhotonNetwork.Connected)
 		{
 			PhotonNetwork.Disconnect();
 		}

@@ -127,7 +127,7 @@ public class TITAN_EREN : Photon.MonoBehaviour
 	public void playAnimation(string aniName)
 	{
 		base.animation.Play(aniName);
-		if (PhotonNetwork.connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.isMine)
 		{
 			base.photonView.RPC("netPlayAnimation", PhotonTargets.Others, aniName);
 		}
@@ -137,7 +137,7 @@ public class TITAN_EREN : Photon.MonoBehaviour
 	{
 		base.animation.Play(aniName);
 		base.animation[aniName].normalizedTime = normalizedTime;
-		if (PhotonNetwork.connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.isMine)
 		{
 			base.photonView.RPC("netPlayAnimationAt", PhotonTargets.Others, aniName, normalizedTime);
 		}
@@ -146,7 +146,7 @@ public class TITAN_EREN : Photon.MonoBehaviour
 	private void crossFade(string aniName, float time)
 	{
 		base.animation.CrossFade(aniName, time);
-		if (PhotonNetwork.connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.isMine)
 		{
 			base.photonView.RPC("netCrossFade", PhotonTargets.Others, aniName, time);
 		}
@@ -524,7 +524,7 @@ public class TITAN_EREN : Photon.MonoBehaviour
 					crossFade("idle", 0.1f);
 					if (IN_GAME_MAIN_CAMERA.gametype != 0)
 					{
-						if (PhotonNetwork.isMasterClient)
+						if (PhotonNetwork.IsMasterClient)
 						{
 							base.photonView.RPC("netTauntAttack", PhotonTargets.MasterClient, 10f, 500f);
 						}
@@ -888,12 +888,12 @@ public class TITAN_EREN : Photon.MonoBehaviour
 			{
 				hasDied = true;
 				Transform transform = base.transform.Find("Amarture/Core/Controller_Body/hip/spine/chest/neck");
-				GameObject gameObject = ((IN_GAME_MAIN_CAMERA.gametype != GAMETYPE.MULTIPLAYER || !PhotonNetwork.isMasterClient) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("bloodExplore"), transform.position + Vector3.up * 1f * 4f, Quaternion.Euler(270f, 0f, 0f))) : PhotonNetwork.Instantiate("bloodExplore", transform.position + Vector3.up * 1f * 4f, Quaternion.Euler(270f, 0f, 0f), 0));
+				GameObject gameObject = ((IN_GAME_MAIN_CAMERA.gametype != GAMETYPE.MULTIPLAYER || !PhotonNetwork.IsMasterClient) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("bloodExplore"), transform.position + Vector3.up * 1f * 4f, Quaternion.Euler(270f, 0f, 0f))) : PhotonNetwork.Instantiate("bloodExplore", transform.position + Vector3.up * 1f * 4f, Quaternion.Euler(270f, 0f, 0f), 0));
 				gameObject.transform.localScale = base.transform.localScale;
-				gameObject = ((IN_GAME_MAIN_CAMERA.gametype != GAMETYPE.MULTIPLAYER || !PhotonNetwork.isMasterClient) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("bloodsplatter"), transform.position, Quaternion.Euler(90f + transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z))) : PhotonNetwork.Instantiate("bloodsplatter", transform.position, Quaternion.Euler(90f + transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z), 0));
+				gameObject = ((IN_GAME_MAIN_CAMERA.gametype != GAMETYPE.MULTIPLAYER || !PhotonNetwork.IsMasterClient) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("bloodsplatter"), transform.position, Quaternion.Euler(90f + transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z))) : PhotonNetwork.Instantiate("bloodsplatter", transform.position, Quaternion.Euler(90f + transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z), 0));
 				gameObject.transform.localScale = base.transform.localScale;
 				gameObject.transform.parent = transform;
-				gameObject = ((IN_GAME_MAIN_CAMERA.gametype != GAMETYPE.MULTIPLAYER || !PhotonNetwork.isMasterClient) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("FX/justSmoke"), transform.position, Quaternion.Euler(270f, 0f, 0f))) : PhotonNetwork.Instantiate("FX/justSmoke", transform.position, Quaternion.Euler(270f, 0f, 0f), 0));
+				gameObject = ((IN_GAME_MAIN_CAMERA.gametype != GAMETYPE.MULTIPLAYER || !PhotonNetwork.IsMasterClient) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("FX/justSmoke"), transform.position, Quaternion.Euler(270f, 0f, 0f))) : PhotonNetwork.Instantiate("FX/justSmoke", transform.position, Quaternion.Euler(270f, 0f, 0f), 0));
 				gameObject.transform.parent = transform;
 			}
 		}
@@ -1106,7 +1106,7 @@ public class TITAN_EREN : Photon.MonoBehaviour
 			if (base.animation["rock_fix_hole"].normalizedTime >= 0.62f && !rockHitGround)
 			{
 				rockHitGround = true;
-				if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.isMasterClient)
+				if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
 				{
 					PhotonNetwork.Instantiate("FX/boom1_CT_KICK", new Vector3(0f, 30f, 684f), Quaternion.Euler(270f, 0f, 0f), 0);
 				}

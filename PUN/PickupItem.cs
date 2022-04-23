@@ -75,7 +75,7 @@ public class PickupItem : Photon.MonoBehaviour, IPunObservable
 		}
 		if (!base.gameObject.GetActive())
 		{
-			Debug.Log(string.Concat("Ignored PU RPC, cause item is inactive. ", base.gameObject, " SecondsBeforeRespawn: ", SecondsBeforeRespawn, " TimeOfRespawn: ", TimeOfRespawn, " respawn in future: ", TimeOfRespawn > PhotonNetwork.time));
+			Debug.Log(string.Concat("Ignored PU RPC, cause item is inactive. ", base.gameObject, " SecondsBeforeRespawn: ", SecondsBeforeRespawn, " TimeOfRespawn: ", TimeOfRespawn, " respawn in future: ", TimeOfRespawn > PhotonNetwork.Time));
 			return;
 		}
 		PickupIsMine = msgInfo.sender.isLocal;
@@ -88,7 +88,7 @@ public class PickupItem : Photon.MonoBehaviour, IPunObservable
 			PickedUp(0f);
 			return;
 		}
-		double num = PhotonNetwork.time - msgInfo.timestamp;
+		double num = PhotonNetwork.Time - msgInfo.timestamp;
 		double num2 = (double)SecondsBeforeRespawn - num;
 		if (num2 > 0.0)
 		{
@@ -103,7 +103,7 @@ public class PickupItem : Photon.MonoBehaviour, IPunObservable
 		TimeOfRespawn = 0.0;
 		if (timeUntilRespawn > 0f)
 		{
-			TimeOfRespawn = PhotonNetwork.time + (double)timeUntilRespawn;
+			TimeOfRespawn = PhotonNetwork.Time + (double)timeUntilRespawn;
 			Invoke("PunRespawn", timeUntilRespawn);
 		}
 	}

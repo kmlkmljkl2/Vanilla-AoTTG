@@ -103,7 +103,7 @@ public class TriggerColliderWeapon : MonoBehaviour
 					GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().playerKillInfoSingleUpdate(b2);
 				}
 			}
-			else if (!PhotonNetwork.isMasterClient)
+			else if (!PhotonNetwork.IsMasterClient)
 			{
 				if ((bool)component2.transform.root.GetComponent<TITAN>())
 				{
@@ -200,7 +200,7 @@ public class TriggerColliderWeapon : MonoBehaviour
 						gameObject2.GetComponent<FEMALE_TITAN>().hitEye();
 					}
 				}
-				else if (!PhotonNetwork.isMasterClient)
+				else if (!PhotonNetwork.IsMasterClient)
 				{
 					if (!gameObject2.GetComponent<FEMALE_TITAN>().hasDie)
 					{
@@ -225,7 +225,7 @@ public class TriggerColliderWeapon : MonoBehaviour
 						gameObject2.GetComponent<TITAN>().hitEye();
 					}
 				}
-				else if (!PhotonNetwork.isMasterClient)
+				else if (!PhotonNetwork.IsMasterClient)
 				{
 					if (!gameObject2.GetComponent<TITAN>().hasDie)
 					{
@@ -259,7 +259,7 @@ public class TriggerColliderWeapon : MonoBehaviour
 					}
 					return;
 				}
-				if (!PhotonNetwork.isMasterClient)
+				if (!PhotonNetwork.IsMasterClient)
 				{
 					if (!gameObject3.GetComponent<TITAN>().hasDie)
 					{
@@ -294,7 +294,7 @@ public class TriggerColliderWeapon : MonoBehaviour
 				}
 				else if (other.gameObject.name == "ankleR")
 				{
-					if (!PhotonNetwork.isMasterClient)
+					if (!PhotonNetwork.IsMasterClient)
 					{
 						if (!gameObject3.GetComponent<FEMALE_TITAN>().hasDie)
 						{
@@ -306,7 +306,7 @@ public class TriggerColliderWeapon : MonoBehaviour
 						gameObject3.GetComponent<FEMALE_TITAN>().hitAnkleRRPC(base.transform.root.gameObject.GetPhotonView().viewID, b9);
 					}
 				}
-				else if (!PhotonNetwork.isMasterClient)
+				else if (!PhotonNetwork.IsMasterClient)
 				{
 					if (!gameObject3.GetComponent<FEMALE_TITAN>().hasDie)
 					{

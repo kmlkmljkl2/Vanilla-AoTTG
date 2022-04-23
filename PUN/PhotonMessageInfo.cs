@@ -10,8 +10,8 @@ public class PhotonMessageInfo
 
 	public PhotonMessageInfo()
 	{
-		sender = PhotonNetwork.player;
-		timeInt = (int)(PhotonNetwork.time * 1000.0);
+		sender = PhotonNetwork.Player;
+		timeInt = (int)(PhotonNetwork.Time * 1000.0);
 		photonView = null;
 	}
 

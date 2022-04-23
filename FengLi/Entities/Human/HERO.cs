@@ -441,7 +441,7 @@ public partial class HERO : Photon.MonoBehaviour
                 else
                 {
                     int num = 0;
-                    PhotonPlayer[] playerList = PhotonNetwork.playerList;
+                    PhotonPlayer[] playerList = PhotonNetwork.PlayerList;
                     foreach (PhotonPlayer photonPlayer in playerList)
                     {
                         if ((int)photonPlayer.customProperties[PhotonPlayerProperty.isTitan] == 1 && ((string)photonPlayer.customProperties[PhotonPlayerProperty.character]).ToUpper() == "EREN")
@@ -554,7 +554,7 @@ public partial class HERO : Photon.MonoBehaviour
         if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && base.photonView.isMine)
         {
             base.photonView.RPC("setMyTeam", PhotonTargets.OthersBuffered, team);
-            PhotonNetwork.player.SetCustomProperties(new Hashtable {
+            PhotonNetwork.Player.SetCustomProperties(new Hashtable {
             {
                 PhotonPlayerProperty.team,
                 team
@@ -693,7 +693,7 @@ public partial class HERO : Photon.MonoBehaviour
     {
         currentAnimation = aniName;
         base.animation.Play(aniName);
-        if (PhotonNetwork.connected && base.photonView.isMine)
+        if (PhotonNetwork.Connected && base.photonView.isMine)
         {
             base.photonView.RPC("netPlayAnimation", PhotonTargets.Others, aniName);
         }
@@ -704,7 +704,7 @@ public partial class HERO : Photon.MonoBehaviour
         currentAnimation = aniName;
         base.animation.Play(aniName);
         base.animation[aniName].normalizedTime = normalizedTime;
-        if (PhotonNetwork.connected && base.photonView.isMine)
+        if (PhotonNetwork.Connected && base.photonView.isMine)
         {
             base.photonView.RPC("netPlayAnimationAt", PhotonTargets.Others, aniName, normalizedTime);
         }
@@ -714,7 +714,7 @@ public partial class HERO : Photon.MonoBehaviour
     {
         currentAnimation = aniName;
         base.animation.CrossFade(aniName, time);
-        if (PhotonNetwork.connected && base.photonView.isMine)
+        if (PhotonNetwork.Connected && base.photonView.isMine)
         {
             base.photonView.RPC("netCrossFade", PhotonTargets.Others, aniName, time);
         }
@@ -917,7 +917,7 @@ public partial class HERO : Photon.MonoBehaviour
                     return;
                 }
                 base.photonView.RPC("netSetIsGrabbedFalse", PhotonTargets.All);
-                if (PhotonNetwork.isMasterClient)
+                if (PhotonNetwork.IsMasterClient)
                 {
                     titanWhoGrabMe.GetComponent<TITAN>().grabbedTargetEscape();
                 }
@@ -961,7 +961,7 @@ public partial class HERO : Photon.MonoBehaviour
                 else
                 {
                     base.photonView.RPC("netSetIsGrabbedFalse", PhotonTargets.All);
-                    if (PhotonNetwork.isMasterClient)
+                    if (PhotonNetwork.IsMasterClient)
                     {
                         titanWhoGrabMe.GetComponent<TITAN>().grabbedTargetEscape();
                     }
@@ -1573,7 +1573,7 @@ public partial class HERO : Photon.MonoBehaviour
                         {
                             if (IN_GAME_MAIN_CAMERA.gametype != 0)
                             {
-                                if (!PhotonNetwork.isMasterClient)
+                                if (!PhotonNetwork.IsMasterClient)
                                 {
                                     base.photonView.RPC("netTauntAttack", PhotonTargets.MasterClient, 5f, 100f);
                                 }
@@ -1593,7 +1593,7 @@ public partial class HERO : Photon.MonoBehaviour
                         {
                             if (IN_GAME_MAIN_CAMERA.gametype != 0)
                             {
-                                if (!PhotonNetwork.isMasterClient)
+                                if (!PhotonNetwork.IsMasterClient)
                                 {
                                     base.photonView.RPC("netlaughAttack", PhotonTargets.MasterClient);
                                 }

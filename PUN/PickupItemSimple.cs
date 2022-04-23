@@ -40,7 +40,7 @@ public class PickupItemSimple : Photon.MonoBehaviour
 			Debug.Log("Ignored PU RPC, cause item is inactive. " + base.gameObject);
 			return;
 		}
-		double num = PhotonNetwork.time - msgInfo.timestamp;
+		double num = PhotonNetwork.Time - msgInfo.timestamp;
 		float num2 = SecondsBeforeRespawn - (float)num;
 		if (num2 > 0f)
 		{

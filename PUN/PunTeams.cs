@@ -42,9 +42,9 @@ public class PunTeams : MonoBehaviour
 		{
 			PlayersPerTeam[(Team)(byte)item].Clear();
 		}
-		for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
+		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
 		{
-			PhotonPlayer photonPlayer = PhotonNetwork.playerList[i];
+			PhotonPlayer photonPlayer = PhotonNetwork.PlayerList[i];
 			Team team = photonPlayer.GetTeam();
 			PlayersPerTeam[team].Add(photonPlayer);
 		}

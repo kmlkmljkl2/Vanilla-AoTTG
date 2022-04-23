@@ -18,7 +18,7 @@ public class BTN_choose_titan : MonoBehaviour
 			string text = "AHSS";
 			NGUITools.SetActive(GameObject.Find("UI_IN_GAME").GetComponent<UIReferArray>().panels[0], state: true);
 			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().needChooseSide = false;
-			if (!PhotonNetwork.isMasterClient && GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().roundTime > 60f)
+			if (!PhotonNetwork.IsMasterClient && GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().roundTime > 60f)
 			{
 				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().NOTSpawnPlayer(text);
 				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("restartGameByClient", PhotonTargets.MasterClient);
@@ -35,7 +35,7 @@ public class BTN_choose_titan : MonoBehaviour
 			Hashtable hashtable = new Hashtable();
 			hashtable.Add(PhotonPlayerProperty.character, text);
 			Hashtable customProperties = hashtable;
-			PhotonNetwork.player.SetCustomProperties(customProperties);
+			PhotonNetwork.Player.SetCustomProperties(customProperties);
 		}
 		else
 		{
@@ -46,7 +46,7 @@ public class BTN_choose_titan : MonoBehaviour
 			string selection = GameObject.Find("PopupListCharacterTITAN").GetComponent<UIPopupList>().selection;
 			NGUITools.SetActive(base.transform.parent.gameObject, state: false);
 			NGUITools.SetActive(GameObject.Find("UI_IN_GAME").GetComponent<UIReferArray>().panels[0], state: true);
-			if ((!PhotonNetwork.isMasterClient && GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().roundTime > 60f) || GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().justSuicide)
+			if ((!PhotonNetwork.IsMasterClient && GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().roundTime > 60f) || GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().justSuicide)
 			{
 				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().justSuicide = false;
 				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().NOTSpawnNonAITitan(selection);

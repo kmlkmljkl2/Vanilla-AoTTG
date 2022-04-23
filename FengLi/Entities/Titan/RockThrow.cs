@@ -25,7 +25,7 @@ public class RockThrow : Photon.MonoBehaviour
 		base.transform.Rotate(r);
 		v -= 20f * Vector3.up * Time.deltaTime;
 		base.transform.position += v * Time.deltaTime;
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && !PhotonNetwork.isMasterClient)
+		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && !PhotonNetwork.IsMasterClient)
 		{
 			return;
 		}
@@ -86,7 +86,7 @@ public class RockThrow : Photon.MonoBehaviour
 	private void explore()
 	{
 		GameObject gameObject;
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.isMasterClient)
+		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
 		{
 			gameObject = PhotonNetwork.Instantiate("FX/boom6", base.transform.position, base.transform.rotation, 0);
 			if (base.transform.root.gameObject.GetComponent<EnemyfxIDcontainer>() != null)
@@ -118,7 +118,7 @@ public class RockThrow : Photon.MonoBehaviour
 		launched = true;
 		oldP = base.transform.position;
 		v = v1;
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.isMasterClient)
+		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
 		{
 			base.photonView.RPC("launchRPC", PhotonTargets.Others, v, oldP);
 		}

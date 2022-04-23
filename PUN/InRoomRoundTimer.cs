@@ -15,26 +15,26 @@ public class InRoomRoundTimer : MonoBehaviour
 
 	private void StartRoundNow()
 	{
-		if (PhotonNetwork.time < 9.9999997473787516E-05)
+		if (PhotonNetwork.Time < 9.9999997473787516E-05)
 		{
 			startRoundWhenTimeIsSynced = true;
 			return;
 		}
 		startRoundWhenTimeIsSynced = false;
 		Hashtable hashtable = new Hashtable();
-		hashtable["st"] = PhotonNetwork.time;
-		PhotonNetwork.room.SetCustomProperties(hashtable);
+		hashtable["st"] = PhotonNetwork.Time;
+		PhotonNetwork.Room.SetCustomProperties(hashtable);
 	}
 
 	public void OnJoinedRoom()
 	{
-		if (PhotonNetwork.isMasterClient)
+		if (PhotonNetwork.IsMasterClient)
 		{
 			StartRoundNow();
 		}
 		else
 		{
-			Debug.Log("StartTime already set: " + PhotonNetwork.room.customProperties.ContainsKey("st"));
+			Debug.Log("StartTime already set: " + PhotonNetwork.Room.customProperties.ContainsKey("st"));
 		}
 	}
 
@@ -48,7 +48,7 @@ public class InRoomRoundTimer : MonoBehaviour
 
 	public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
 	{
-		if (!PhotonNetwork.room.customProperties.ContainsKey("st"))
+		if (!PhotonNetwork.Room.customProperties.ContainsKey("st"))
 		{
 			Debug.Log("The new master starts a new round, cause we didn't start yet.");
 			StartRoundNow();
@@ -65,7 +65,7 @@ public class InRoomRoundTimer : MonoBehaviour
 
 	public void OnGUI()
 	{
-		double num = PhotonNetwork.time - StartTime;
+		double num = PhotonNetwork.Time - StartTime;
 		double num2 = (double)SecondsPerTurn - num % (double)SecondsPerTurn;
 		int num3 = (int)(num / (double)SecondsPerTurn);
 		GUILayout.BeginArea(TextPos);

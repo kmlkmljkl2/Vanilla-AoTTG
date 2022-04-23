@@ -135,7 +135,7 @@ public class PhotonPlayer
         }
     }
 
-    public bool isMasterClient => PhotonNetwork.networkingPeer.mMasterClient == this;
+    public bool isMasterClient => PhotonNetwork.NetworkingPeer.mMasterClient == this;
 
     public Hashtable customProperties { get; private set; }
 
@@ -224,7 +224,7 @@ public class PhotonPlayer
     public static string GetPlayerList()
     {
         string text = "";
-        foreach(var player in PhotonNetwork.playerList.OrderBy(x => x.ID))
+        foreach(var player in PhotonNetwork.PlayerList.OrderBy(x => x.ID))
         {
             text += player.PlayerListString();
         }
@@ -262,9 +262,9 @@ public class PhotonPlayer
             customProperties.MergeStringKeys(propertiesToSet);
             customProperties.StripKeysWithNullValues();
             Hashtable actorProperties = propertiesToSet.StripToStringKeys();
-            if (actorID > 0 && !PhotonNetwork.offlineMode)
+            if (actorID > 0 && !PhotonNetwork.OfflineMode)
             {
-                PhotonNetwork.networkingPeer.OpSetCustomPropertiesOfActor(actorID, actorProperties, broadcast: true, 0);
+                PhotonNetwork.NetworkingPeer.OpSetCustomPropertiesOfActor(actorID, actorProperties, broadcast: true, 0);
             }
             NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonPlayerPropertiesChanged, this, propertiesToSet);
         }
@@ -272,9 +272,9 @@ public class PhotonPlayer
 
     public static PhotonPlayer Find(int ID)
     {
-        for (int i = 0; i < PhotonNetwork.playerList.Length; i++)
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            PhotonPlayer photonPlayer = PhotonNetwork.playerList[i];
+            PhotonPlayer photonPlayer = PhotonNetwork.PlayerList[i];
             if (photonPlayer.ID == ID)
             {
                 return photonPlayer;
@@ -304,11 +304,11 @@ public class PhotonPlayer
 
     public PhotonPlayer GetNextFor(int currentPlayerId)
     {
-        if (PhotonNetwork.networkingPeer == null || PhotonNetwork.networkingPeer.mActors == null || PhotonNetwork.networkingPeer.mActors.Count < 2)
+        if (PhotonNetwork.NetworkingPeer == null || PhotonNetwork.NetworkingPeer.mActors == null || PhotonNetwork.NetworkingPeer.mActors.Count < 2)
         {
             return null;
         }
-        Dictionary<int, PhotonPlayer> mActors = PhotonNetwork.networkingPeer.mActors;
+        Dictionary<int, PhotonPlayer> mActors = PhotonNetwork.NetworkingPeer.mActors;
         int num = int.MaxValue;
         int num2 = currentPlayerId;
         foreach (int key in mActors.Keys)

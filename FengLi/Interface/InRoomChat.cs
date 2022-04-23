@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Photon;
 using UnityEngine;
 
-public class InRoomChat : Photon.MonoBehaviour
+public partial class InRoomChat : Photon.MonoBehaviour
 {
 	public static Rect GuiRect = new Rect(0f, 100f, 300f, 470f);
 
@@ -36,7 +36,7 @@ public class InRoomChat : Photon.MonoBehaviour
 
 	public void OnGUI()
 	{
-		if (!IsVisible || PhotonNetwork.connectionStateDetailed != PeerState.Joined)
+		if (!IsVisible || PhotonNetwork.ConnectionStateDetailed != PeerState.Joined)
 		{
 			return;
 		}
@@ -50,7 +50,7 @@ public class InRoomChat : Photon.MonoBehaviour
 					GUI.FocusControl(string.Empty);
 					return;
 				}
-				if (inputLine == "/restart" && PhotonNetwork.isMasterClient)
+				if (inputLine == "/restart" && PhotonNetwork.IsMasterClient)
 				{
 					inputLine = string.Empty;
 					GUI.FocusControl(string.Empty);
@@ -59,18 +59,18 @@ public class InRoomChat : Photon.MonoBehaviour
 				}
 				if (inputLine.Length > 7 && inputLine.Substring(0, 7) == "/kick #")
 				{
-					if (inputLine.Remove(0, 7) == PhotonNetwork.masterClient.ID.ToString())
+					if (inputLine.Remove(0, 7) == PhotonNetwork.MasterClient.ID.ToString())
 					{
 						GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE("error:can't kick master client.");
 					}
-					else if (inputLine.Remove(0, 7) == PhotonNetwork.player.ID.ToString())
+					else if (inputLine.Remove(0, 7) == PhotonNetwork.Player.ID.ToString())
 					{
 						GameObject.Find("Chatroom").GetComponent<InRoomChat>().addLINE("error:can't kick yourself.");
 					}
 					else
 					{
 						bool flag = false;
-						PhotonPlayer[] playerList = PhotonNetwork.playerList;
+						PhotonPlayer[] playerList = PhotonNetwork.PlayerList;
 						foreach (PhotonPlayer photonPlayer in playerList)
 						{
 							if (photonPlayer.ID.ToString() == inputLine.Remove(0, 7))

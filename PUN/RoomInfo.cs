@@ -10,7 +10,7 @@ public class RoomInfo
 
 	protected bool visibleField = true;
 
-	protected bool autoCleanUpField = PhotonNetwork.autoCleanUpPlayerObjects;
+	protected bool autoCleanUpField = PhotonNetwork.AutoCleanUpPlayerObjects;
 
 	protected string nameField;
 

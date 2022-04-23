@@ -12,7 +12,7 @@ public class OnClickInstantiate : MonoBehaviour
 
 	private void OnClick()
 	{
-		if (PhotonNetwork.connectionStateDetailed == PeerState.Joined)
+		if (PhotonNetwork.ConnectionStateDetailed == PeerState.Joined)
 		{
 			switch (InstantiateType)
 			{

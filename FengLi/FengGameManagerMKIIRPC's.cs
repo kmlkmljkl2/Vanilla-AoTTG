@@ -144,7 +144,7 @@ public partial class FengGameManagerMKII
     [RPC]
     public void oneTitanDown(string name1 = "", bool onPlayerLeave = false)
     {
-        if (IN_GAME_MAIN_CAMERA.gametype != 0 && !PhotonNetwork.isMasterClient)
+        if (IN_GAME_MAIN_CAMERA.gametype != 0 && !PhotonNetwork.IsMasterClient)
         {
             return;
         }
@@ -215,7 +215,7 @@ public partial class FengGameManagerMKII
                 {
                     highestwave = wave;
                 }
-                if (PhotonNetwork.isMasterClient)
+                if (PhotonNetwork.IsMasterClient)
                 {
                     RequireStatus();
                 }
@@ -358,7 +358,7 @@ public partial class FengGameManagerMKII
     {
         if (content.Length > 7 && content.Substring(0, 7) == "/kick #")
         {
-            if (PhotonNetwork.isMasterClient)
+            if (PhotonNetwork.IsMasterClient)
             {
                 kickPlayer(content.Remove(0, 7), sender);
             }

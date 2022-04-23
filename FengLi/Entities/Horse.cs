@@ -324,7 +324,7 @@ public class Horse : Photon.MonoBehaviour
 	public void playAnimation(string aniName)
 	{
 		base.animation.Play(aniName);
-		if (PhotonNetwork.connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.isMine)
 		{
 			base.photonView.RPC("netPlayAnimation", PhotonTargets.Others, aniName);
 		}
@@ -334,7 +334,7 @@ public class Horse : Photon.MonoBehaviour
 	{
 		base.animation.Play(aniName);
 		base.animation[aniName].normalizedTime = normalizedTime;
-		if (PhotonNetwork.connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.isMine)
 		{
 			base.photonView.RPC("netPlayAnimationAt", PhotonTargets.Others, aniName, normalizedTime);
 		}
@@ -343,7 +343,7 @@ public class Horse : Photon.MonoBehaviour
 	private void crossFade(string aniName, float time)
 	{
 		base.animation.CrossFade(aniName, time);
-		if (PhotonNetwork.connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.isMine)
 		{
 			base.photonView.RPC("netCrossFade", PhotonTargets.Others, aniName, time);
 		}

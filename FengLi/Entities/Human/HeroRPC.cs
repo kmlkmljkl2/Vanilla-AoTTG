@@ -193,15 +193,15 @@ public partial class HERO
         if (base.photonView.isMine)
         {
             PhotonNetwork.RemoveRPCs(base.photonView);
-            PhotonNetwork.player.SetCustomProperties(new Hashtable {
+            PhotonNetwork.Player.SetCustomProperties(new Hashtable {
             {
                 PhotonPlayerProperty.dead,
                 true
             } });
-            PhotonNetwork.player.SetCustomProperties(new Hashtable {
+            PhotonNetwork.Player.SetCustomProperties(new Hashtable {
             {
                 PhotonPlayerProperty.deaths,
-                (int)PhotonNetwork.player.customProperties[PhotonPlayerProperty.deaths] + 1
+                (int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
             } });
             GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("someOneIsDead", PhotonTargets.MasterClient, (!(titanName == string.Empty)) ? 1 : 0);
             if (viewID != -1)
@@ -209,7 +209,7 @@ public partial class HERO
                 PhotonView photonView = PhotonView.Find(viewID);
                 if (photonView != null)
                 {
-                    GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(killByTitan, (string)photonView.owner.customProperties[PhotonPlayerProperty.name], t2: false, (string)PhotonNetwork.player.customProperties[PhotonPlayerProperty.name]);
+                    GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(killByTitan, (string)photonView.owner.customProperties[PhotonPlayerProperty.name], t2: false, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
                     photonView.owner.SetCustomProperties(new Hashtable {
                     {
                         PhotonPlayerProperty.kills,
@@ -219,7 +219,7 @@ public partial class HERO
             }
             else
             {
-                GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo((!(titanName == string.Empty)) ? true : false, titanName, t2: false, (string)PhotonNetwork.player.customProperties[PhotonPlayerProperty.name]);
+                GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo((!(titanName == string.Empty)) ? true : false, titanName, t2: false, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
             }
         }
         if (base.photonView.isMine)
@@ -264,22 +264,22 @@ public partial class HERO
         if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && base.photonView.isMine)
         {
             PhotonNetwork.RemoveRPCs(base.photonView);
-            PhotonNetwork.player.SetCustomProperties(new Hashtable {
+            PhotonNetwork.Player.SetCustomProperties(new Hashtable {
             {
                 PhotonPlayerProperty.dead,
                 true
             } });
-            PhotonNetwork.player.SetCustomProperties(new Hashtable {
+            PhotonNetwork.Player.SetCustomProperties(new Hashtable {
             {
                 PhotonPlayerProperty.deaths,
-                (int)PhotonNetwork.player.customProperties[PhotonPlayerProperty.deaths] + 1
+                (int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
             } });
             if (viewID != -1)
             {
                 PhotonView photonView = PhotonView.Find(viewID);
                 if (photonView != null)
                 {
-                    GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: true, (string)photonView.owner.customProperties[PhotonPlayerProperty.name], t2: false, (string)PhotonNetwork.player.customProperties[PhotonPlayerProperty.name]);
+                    GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: true, (string)photonView.owner.customProperties[PhotonPlayerProperty.name], t2: false, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
                     photonView.owner.SetCustomProperties(new Hashtable {
                     {
                         PhotonPlayerProperty.kills,
@@ -289,7 +289,7 @@ public partial class HERO
             }
             else
             {
-                GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: true, titanName, t2: false, (string)PhotonNetwork.player.customProperties[PhotonPlayerProperty.name]);
+                GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: true, titanName, t2: false, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
             }
             GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("someOneIsDead", PhotonTargets.MasterClient, (!(titanName == string.Empty)) ? 1 : 0);
         }

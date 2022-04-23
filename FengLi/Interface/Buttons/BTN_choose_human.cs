@@ -12,7 +12,7 @@ public class BTN_choose_human : MonoBehaviour
 		{
 			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().checkpoint = GameObject.Find("PVPchkPtH");
 		}
-		if (!PhotonNetwork.isMasterClient && GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().roundTime > 60f)
+		if (!PhotonNetwork.IsMasterClient && GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().roundTime > 60f)
 		{
             if (!isPlayerAllDead())
             {
@@ -49,14 +49,14 @@ public class BTN_choose_human : MonoBehaviour
 		Hashtable hashtable = new Hashtable();
 		hashtable.Add(PhotonPlayerProperty.character, selection);
 		Hashtable customProperties = hashtable;
-		PhotonNetwork.player.SetCustomProperties(customProperties);
+		PhotonNetwork.Player.SetCustomProperties(customProperties);
 	}
 
 	public bool isPlayerAllDead()
 	{
 		int num = 0;
 		int num2 = 0;
-		PhotonPlayer[] playerList = PhotonNetwork.playerList;
+		PhotonPlayer[] playerList = PhotonNetwork.PlayerList;
 		foreach (PhotonPlayer photonPlayer in playerList)
 		{
 			if (!photonPlayer.IsTitan)

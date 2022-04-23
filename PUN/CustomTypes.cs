@@ -87,9 +87,9 @@ internal static class CustomTypes
 	{
 		int offset = 0;
 		Protocol.Deserialize(out int value, bytes, ref offset);
-		if (PhotonNetwork.networkingPeer.mActors.ContainsKey(value))
+		if (PhotonNetwork.NetworkingPeer.mActors.ContainsKey(value))
 		{
-			return PhotonNetwork.networkingPeer.mActors[value];
+			return PhotonNetwork.NetworkingPeer.mActors[value];
 		}
 		return null;
 	}

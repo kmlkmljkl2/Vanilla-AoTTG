@@ -43,9 +43,9 @@ public class PhotonView : Photon.MonoBehaviour
 	{
 		get
 		{
-			if (prefixBackup == -1 && PhotonNetwork.networkingPeer != null)
+			if (prefixBackup == -1 && PhotonNetwork.NetworkingPeer != null)
 			{
-				prefixBackup = PhotonNetwork.networkingPeer.currentLevelPrefix;
+				prefixBackup = PhotonNetwork.NetworkingPeer.currentLevelPrefix;
 			}
 			return prefixBackup;
 		}
@@ -61,7 +61,7 @@ public class PhotonView : Photon.MonoBehaviour
 		{
 			if (!didAwake)
 			{
-				instantiationDataField = PhotonNetwork.networkingPeer.FetchInstantiationData(instantiationId);
+				instantiationDataField = PhotonNetwork.NetworkingPeer.FetchInstantiationData(instantiationId);
 			}
 			return instantiationDataField;
 		}
@@ -84,7 +84,7 @@ public class PhotonView : Photon.MonoBehaviour
 			subId = value % PhotonNetwork.MAX_VIEW_IDS;
 			if (flag)
 			{
-				PhotonNetwork.networkingPeer.RegisterPhotonView(this);
+				PhotonNetwork.NetworkingPeer.RegisterPhotonView(this);
 			}
 		}
 	}
@@ -95,12 +95,12 @@ public class PhotonView : Photon.MonoBehaviour
 
 	public int OwnerActorNr => ownerId;
 
-	public bool isMine => ownerId == PhotonNetwork.player.ID || (isSceneView && PhotonNetwork.isMasterClient);
+	public bool isMine => ownerId == PhotonNetwork.Player.ID || (isSceneView && PhotonNetwork.IsMasterClient);
 
 	protected internal void Awake()
 	{
-		PhotonNetwork.networkingPeer.RegisterPhotonView(this);
-		instantiationDataField = PhotonNetwork.networkingPeer.FetchInstantiationData(instantiationId);
+		PhotonNetwork.NetworkingPeer.RegisterPhotonView(this);
+		instantiationDataField = PhotonNetwork.NetworkingPeer.FetchInstantiationData(instantiationId);
 		didAwake = true;
 	}
 
@@ -113,7 +113,7 @@ public class PhotonView : Photon.MonoBehaviour
 	{
 		if (!destroyedByPhotonNetworkOrQuit)
 		{
-			PhotonNetwork.networkingPeer.LocalCleanPhotonView(this);
+			PhotonNetwork.NetworkingPeer.LocalCleanPhotonView(this);
 		}
 		if (!destroyedByPhotonNetworkOrQuit && !Application.isLoadingLevel)
 		{
@@ -125,14 +125,14 @@ public class PhotonView : Photon.MonoBehaviour
 			{
 				Debug.LogWarning($"OnDestroy manually allocated PhotonView {this}. The viewID is 0. Was it ever (manually) set?");
 			}
-			else if (isMine && !PhotonNetwork.manuallyAllocatedViewIds.Contains(viewID))
+			else if (isMine && !PhotonNetwork.ManuallyAllocatedViewIds.Contains(viewID))
 			{
 				Debug.LogWarning($"OnDestroy manually allocated PhotonView {this}. The viewID is local (isMine) but not in manuallyAllocatedViewIds list. Use UnAllocateViewID() after you destroyed the PV.");
 			}
 		}
-		if (PhotonNetwork.networkingPeer.instantiatedObjects.ContainsKey(instantiationId))
+		if (PhotonNetwork.NetworkingPeer.instantiatedObjects.ContainsKey(instantiationId))
 		{
-			GameObject gameObject = PhotonNetwork.networkingPeer.instantiatedObjects[instantiationId];
+			GameObject gameObject = PhotonNetwork.NetworkingPeer.instantiatedObjects[instantiationId];
 			bool flag = gameObject == base.gameObject;
 			if (flag)
 			{
@@ -159,9 +159,9 @@ public class PhotonView : Photon.MonoBehaviour
 
 	public void RPC(string methodName, PhotonTargets target, params object[] parameters)
 	{
-		if (PhotonNetwork.networkingPeer.hasSwitchedMC && target == PhotonTargets.MasterClient)
+		if (PhotonNetwork.NetworkingPeer.hasSwitchedMC && target == PhotonTargets.MasterClient)
 		{
-			PhotonNetwork.RPC(this, methodName, PhotonNetwork.masterClient, parameters);
+			PhotonNetwork.RPC(this, methodName, PhotonNetwork.MasterClient, parameters);
 		}
 		else
 		{
@@ -186,7 +186,7 @@ public class PhotonView : Photon.MonoBehaviour
 
 	public static PhotonView Find(int viewID)
 	{
-		return PhotonNetwork.networkingPeer.GetPhotonView(viewID);
+		return PhotonNetwork.NetworkingPeer.GetPhotonView(viewID);
 	}
 
 	public override string ToString()

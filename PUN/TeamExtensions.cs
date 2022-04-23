@@ -14,14 +14,14 @@ internal static class TeamExtensions
 
 	public static void SetTeam(this PhotonPlayer player, PunTeams.Team team)
 	{
-		if (!PhotonNetwork.connectedAndReady)
+		if (!PhotonNetwork.ConnectedAndReady)
 		{
-			Debug.LogWarning(string.Concat("JoinTeam was called in state: ", PhotonNetwork.connectionStateDetailed, ". Not connectedAndReady."));
+			Debug.LogWarning(string.Concat("JoinTeam was called in state: ", PhotonNetwork.ConnectionStateDetailed, ". Not connectedAndReady."));
 		}
-		PunTeams.Team team2 = PhotonNetwork.player.GetTeam();
+		PunTeams.Team team2 = PhotonNetwork.Player.GetTeam();
 		if (team2 != team)
 		{
-			PhotonNetwork.player.SetCustomProperties(new Hashtable { 
+			PhotonNetwork.Player.SetCustomProperties(new Hashtable { 
 			{
 				"team",
 				(byte)team

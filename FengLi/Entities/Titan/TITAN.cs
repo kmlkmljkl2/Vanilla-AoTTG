@@ -534,7 +534,7 @@ public class TITAN : Photon.MonoBehaviour
 	{
 		GameObject gameObject = myHero;
 		myHero = getNearestHero();
-		if (myHero != gameObject && IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.isMasterClient)
+		if (myHero != gameObject && IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
 		{
 			if (myHero == null)
 			{
@@ -593,7 +593,7 @@ public class TITAN : Photon.MonoBehaviour
 		}
 		GameObject gameObject3 = myHero;
 		myHero = gameObject;
-		if (gameObject3 != myHero && IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.isMasterClient)
+		if (gameObject3 != myHero && IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
 		{
 			if (myHero == null)
 			{
@@ -851,7 +851,7 @@ public class TITAN : Photon.MonoBehaviour
 					whoHasTauntMe = null;
 				}
 				myHero = whoHasTauntMe;
-				if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.isMasterClient)
+				if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
 				{
 					base.photonView.RPC("setMyTarget", PhotonTargets.Others, myHero.GetPhotonView().viewID);
 				}
@@ -2097,15 +2097,15 @@ public class TITAN : Photon.MonoBehaviour
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setMainObject(null);
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setSpectorMode(val: true);
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().gameOver = true;
-				PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
+				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.dead,
 					true
 				} });
-				PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
+				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.deaths,
-					(int)PhotonNetwork.player.customProperties[PhotonPlayerProperty.deaths] + 1
+					(int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
 				} });
 			}
 		}
@@ -2194,15 +2194,15 @@ public class TITAN : Photon.MonoBehaviour
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setMainObject(null);
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setSpectorMode(val: true);
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().gameOver = true;
-				PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
+				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.dead,
 					true
 				} });
-				PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
+				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.deaths,
-					(int)PhotonNetwork.player.customProperties[PhotonPlayerProperty.deaths] + 1
+					(int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
 				} });
 			}
 		}
@@ -3174,7 +3174,7 @@ public class TITAN : Photon.MonoBehaviour
 			netDie();
 			if (nonAI)
 			{
-				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().titanGetKill(photonView.owner, speed, (string)PhotonNetwork.player.customProperties[PhotonPlayerProperty.name]);
+				GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().titanGetKill(photonView.owner, speed, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
 			}
 			else
 			{
@@ -3195,15 +3195,15 @@ public class TITAN : Photon.MonoBehaviour
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setMainObject(null);
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setSpectorMode(val: true);
 				currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().gameOver = true;
-				PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
+				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.dead,
 					true
 				} });
-				PhotonNetwork.player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
+				PhotonNetwork.Player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { 
 				{
 					PhotonPlayerProperty.deaths,
-					(int)PhotonNetwork.player.customProperties[PhotonPlayerProperty.deaths] + 1
+					(int)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.deaths] + 1
 				} });
 			}
 			dieAnimation();
@@ -3215,7 +3215,7 @@ public class TITAN : Photon.MonoBehaviour
 		netDie();
 		if (nonAI)
 		{
-			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, string.Empty, t2: true, (string)PhotonNetwork.player.customProperties[PhotonPlayerProperty.name]);
+			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo(t1: false, string.Empty, t2: true, (string)PhotonNetwork.Player.customProperties[PhotonPlayerProperty.name]);
 		}
 		GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().needChooseSide = true;
 		GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().justSuicide = true;

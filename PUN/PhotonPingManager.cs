@@ -23,7 +23,7 @@ public class PhotonPingManager
 		{
 			Region result = null;
 			int num = int.MaxValue;
-			foreach (Region availableRegion in PhotonNetwork.networkingPeer.AvailableRegions)
+			foreach (Region availableRegion in PhotonNetwork.NetworkingPeer.AvailableRegions)
 			{
 				UnityEngine.Debug.Log("BestRegion checks region: " + availableRegion);
 				if (availableRegion.Ping != 0 && availableRegion.Ping < num)
