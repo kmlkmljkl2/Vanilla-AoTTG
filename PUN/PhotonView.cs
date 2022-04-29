@@ -95,7 +95,7 @@ public class PhotonView : Photon.MonoBehaviour
 
 	public int OwnerActorNr => ownerId;
 
-	public bool isMine => ownerId == PhotonNetwork.Player.ID || (isSceneView && PhotonNetwork.IsMasterClient);
+	public bool IsMine => ownerId == PhotonNetwork.Player.ID || (isSceneView && PhotonNetwork.IsMasterClient);
 
 	protected internal void Awake()
 	{
@@ -125,7 +125,7 @@ public class PhotonView : Photon.MonoBehaviour
 			{
 				Debug.LogWarning($"OnDestroy manually allocated PhotonView {this}. The viewID is 0. Was it ever (manually) set?");
 			}
-			else if (isMine && !PhotonNetwork.ManuallyAllocatedViewIds.Contains(viewID))
+			else if (IsMine && !PhotonNetwork.ManuallyAllocatedViewIds.Contains(viewID))
 			{
 				Debug.LogWarning($"OnDestroy manually allocated PhotonView {this}. The viewID is local (isMine) but not in manuallyAllocatedViewIds list. Use UnAllocateViewID() after you destroyed the PV.");
 			}

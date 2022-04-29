@@ -34,7 +34,7 @@ public class InRoomRoundTimer : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("StartTime already set: " + PhotonNetwork.Room.customProperties.ContainsKey("st"));
+			Debug.Log("StartTime already set: " + PhotonNetwork.Room.CustomProperties.ContainsKey("st"));
 		}
 	}
 
@@ -48,7 +48,7 @@ public class InRoomRoundTimer : MonoBehaviour
 
 	public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
 	{
-		if (!PhotonNetwork.Room.customProperties.ContainsKey("st"))
+		if (!PhotonNetwork.Room.CustomProperties.ContainsKey("st"))
 		{
 			Debug.Log("The new master starts a new round, cause we didn't start yet.");
 			StartRoundNow();

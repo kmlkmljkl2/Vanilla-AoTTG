@@ -31,7 +31,7 @@ public class EnemyCheckCollider : Photon.MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if ((IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && !base.transform.root.gameObject.GetPhotonView().isMine) || !active_me)
+		if ((IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && !base.transform.root.gameObject.GetPhotonView().IsMine) || !active_me)
 		{
 			return;
 		}
@@ -61,11 +61,11 @@ public class EnemyCheckCollider : Photon.MonoBehaviour
 				{
 					num2 = Mathf.Max(5f, num - vector.magnitude);
 				}
-				if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+				if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 				{
 					component.transform.root.GetComponent<HERO>().blowAway(vector.normalized * num2 + Vector3.up * 1f);
 				}
-				else if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER)
+				else if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer)
 				{
 					component.transform.root.GetComponent<HERO>().photonView.RPC("blowAway", PhotonTargets.All, vector.normalized * num2 + Vector3.up * 1f);
 				}
@@ -76,14 +76,14 @@ public class EnemyCheckCollider : Photon.MonoBehaviour
 				{
 					return;
 				}
-				if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+				if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 				{
 					if (!component.transform.root.GetComponent<HERO>().isGrabbed)
 					{
 						component.transform.root.GetComponent<HERO>().die((component.transform.root.transform.position - base.transform.position).normalized * b * 1000f + Vector3.up * 50f, isThisBite);
 					}
 				}
-				else if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && !component.transform.root.GetComponent<HERO>().HasDied() && !component.transform.root.GetComponent<HERO>().isGrabbed)
+				else if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && !component.transform.root.GetComponent<HERO>().HasDied() && !component.transform.root.GetComponent<HERO>().isGrabbed)
 				{
 					component.transform.root.GetComponent<HERO>().markDie();
 					int num3 = -1;

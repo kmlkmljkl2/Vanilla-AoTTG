@@ -6,15 +6,15 @@ public class DaylightChange : MonoBehaviour
 	{
 		if (GetComponent<UIPopupList>().selection == "DAY")
 		{
-			IN_GAME_MAIN_CAMERA.dayLight = DayLight.Day;
+			IN_GAME_MAIN_CAMERA.DayLight = DayLight.Day;
 		}
 		if (GetComponent<UIPopupList>().selection == "DAWN")
 		{
-			IN_GAME_MAIN_CAMERA.dayLight = DayLight.Dawn;
+			IN_GAME_MAIN_CAMERA.DayLight = DayLight.Dawn;
 		}
 		if (GetComponent<UIPopupList>().selection == "NIGHT")
 		{
-			IN_GAME_MAIN_CAMERA.dayLight = DayLight.Night;
+			IN_GAME_MAIN_CAMERA.DayLight = DayLight.Night;
 		}
 	}
 }

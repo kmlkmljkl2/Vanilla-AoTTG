@@ -22,9 +22,9 @@ public class LevelBottom : MonoBehaviour
 			{
 				return;
 			}
-			if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER)
+			if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer)
 			{
-				if (other.gameObject.GetPhotonView().isMine)
+				if (other.gameObject.GetPhotonView().IsMine)
 				{
 					other.gameObject.GetComponent<HERO>().netDie(base.rigidbody.velocity * 50f, isBite: false, -1, string.Empty);
 				}

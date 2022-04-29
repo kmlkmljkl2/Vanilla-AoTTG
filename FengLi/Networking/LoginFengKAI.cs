@@ -42,7 +42,9 @@ public class LoginFengKAI : MonoBehaviour
 	public GameObject panelChangeGUILDNAME;
 
 	public static PlayerInfoPHOTON player;
-
+	public void Awake()
+    {
+    }
 	private void Start()
 	{
 		if (player == null)

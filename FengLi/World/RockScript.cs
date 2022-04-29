@@ -37,7 +37,7 @@ public class RockScript : MonoBehaviour
 			return;
 		}
 		base.transform.position = desPt;
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && PhotonNetwork.IsMasterClient)
 		{
 			if (FengGameManagerMKII.LAN)
 			{

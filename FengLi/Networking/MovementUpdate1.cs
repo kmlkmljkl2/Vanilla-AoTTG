@@ -12,7 +12,7 @@ public class MovementUpdate1 : MonoBehaviour
 
 	private void Start()
 	{
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			disabled = true;
 			base.enabled = false;

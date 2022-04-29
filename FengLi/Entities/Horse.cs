@@ -60,7 +60,7 @@ public class Horse : Photon.MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if (myHero == null && base.photonView.isMine)
+		if (myHero == null && base.photonView.IsMine)
 		{
 			PhotonNetwork.Destroy(base.gameObject);
 		}
@@ -324,7 +324,7 @@ public class Horse : Photon.MonoBehaviour
 	public void playAnimation(string aniName)
 	{
 		base.animation.Play(aniName);
-		if (PhotonNetwork.Connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.IsMine)
 		{
 			base.photonView.RPC("netPlayAnimation", PhotonTargets.Others, aniName);
 		}
@@ -334,7 +334,7 @@ public class Horse : Photon.MonoBehaviour
 	{
 		base.animation.Play(aniName);
 		base.animation[aniName].normalizedTime = normalizedTime;
-		if (PhotonNetwork.Connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.IsMine)
 		{
 			base.photonView.RPC("netPlayAnimationAt", PhotonTargets.Others, aniName, normalizedTime);
 		}
@@ -343,7 +343,7 @@ public class Horse : Photon.MonoBehaviour
 	private void crossFade(string aniName, float time)
 	{
 		base.animation.CrossFade(aniName, time);
-		if (PhotonNetwork.Connected && base.photonView.isMine)
+		if (PhotonNetwork.Connected && base.photonView.IsMine)
 		{
 			base.photonView.RPC("netCrossFade", PhotonTargets.Others, aniName, time);
 		}

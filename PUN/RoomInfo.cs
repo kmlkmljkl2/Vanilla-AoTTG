@@ -2,94 +2,94 @@ using ExitGames.Client.Photon;
 
 public class RoomInfo
 {
-	private Hashtable customPropertiesField = new Hashtable();
+	private Hashtable CustomPropertiesField = new Hashtable();
 
-	protected byte maxPlayersField;
+	protected byte MaxPlayersField;
 
-	protected bool openField = true;
+	protected bool OpenField = true;
 
-	protected bool visibleField = true;
+	protected bool VisibleField = true;
 
-	protected bool autoCleanUpField = PhotonNetwork.AutoCleanUpPlayerObjects;
+	protected bool AutoCleanUpField = PhotonNetwork.AutoCleanUpPlayerObjects;
 
-	protected string nameField;
+	protected string NameField;
 
-	public bool removedFromList { get; internal set; }
+	public bool RemovedFromList { get; internal set; }
 
-	public Hashtable customProperties => customPropertiesField;
+	public Hashtable CustomProperties => CustomPropertiesField;
 
-	public string name => nameField;
+	public string Name => NameField;
 
-	public int playerCount { get; private set; }
+	public int PlayerCount { get; private set; }
 
-	public bool isLocalClientInside { get; set; }
+	public bool IsLocalClientInside { get; set; }
 
-	public byte maxPlayers => maxPlayersField;
+	public byte MaxPlayers => MaxPlayersField;
 
-	public bool open => openField;
+	public bool Open => OpenField;
 
-	public bool visible => visibleField;
+	public bool Visible => VisibleField;
 
 	protected internal RoomInfo(string roomName, Hashtable properties)
 	{
 		CacheProperties(properties);
-		nameField = roomName;
+		NameField = roomName;
 	}
 
 	public override bool Equals(object p)
 	{
-		return p is Room room && nameField.Equals(room.nameField);
+		return p is Room room && NameField.Equals(room.NameField);
 	}
 
 	public override int GetHashCode()
 	{
-		return nameField.GetHashCode();
+		return NameField.GetHashCode();
 	}
 
 	public override string ToString()
 	{
-		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.", nameField, (!visibleField) ? "hidden" : "visible", (!openField) ? "closed" : "open", maxPlayersField, playerCount);
+		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.", NameField, (!VisibleField) ? "hidden" : "visible", (!OpenField) ? "closed" : "open", MaxPlayersField, PlayerCount);
 	}
 
 	public string ToStringFull()
 	{
-		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", nameField, (!visibleField) ? "hidden" : "visible", (!openField) ? "closed" : "open", maxPlayersField, playerCount, customPropertiesField.ToStringFull());
+		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", NameField, (!VisibleField) ? "hidden" : "visible", (!OpenField) ? "closed" : "open", MaxPlayersField, PlayerCount, CustomPropertiesField.ToStringFull());
 	}
 
 	protected internal void CacheProperties(Hashtable propertiesToCache)
 	{
-		if (propertiesToCache == null || propertiesToCache.Count == 0 || customPropertiesField.Equals(propertiesToCache))
+		if (propertiesToCache == null || propertiesToCache.Count == 0 || CustomPropertiesField.Equals(propertiesToCache))
 		{
 			return;
 		}
 		if (propertiesToCache.ContainsKey((byte)251))
 		{
-			removedFromList = (bool)propertiesToCache[(byte)251];
-			if (removedFromList)
+			RemovedFromList = (bool)propertiesToCache[(byte)251];
+			if (RemovedFromList)
 			{
 				return;
 			}
 		}
 		if (propertiesToCache.ContainsKey(byte.MaxValue))
 		{
-			maxPlayersField = (byte)propertiesToCache[byte.MaxValue];
+			MaxPlayersField = (byte)propertiesToCache[byte.MaxValue];
 		}
 		if (propertiesToCache.ContainsKey((byte)253))
 		{
-			openField = (bool)propertiesToCache[(byte)253];
+			OpenField = (bool)propertiesToCache[(byte)253];
 		}
 		if (propertiesToCache.ContainsKey((byte)254))
 		{
-			visibleField = (bool)propertiesToCache[(byte)254];
+			VisibleField = (bool)propertiesToCache[(byte)254];
 		}
 		if (propertiesToCache.ContainsKey((byte)252))
 		{
-			playerCount = (byte)propertiesToCache[(byte)252];
+			PlayerCount = (byte)propertiesToCache[(byte)252];
 		}
 		if (propertiesToCache.ContainsKey((byte)249))
 		{
-			autoCleanUpField = (bool)propertiesToCache[(byte)249];
+			AutoCleanUpField = (bool)propertiesToCache[(byte)249];
 		}
-		customPropertiesField.MergeStringKeys(propertiesToCache);
+		CustomPropertiesField.MergeStringKeys(propertiesToCache);
 	}
 }

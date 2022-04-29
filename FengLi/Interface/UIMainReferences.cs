@@ -39,7 +39,8 @@ public class UIMainReferences : MonoBehaviour
 			isGAMEFirstLaunch = false;
 			GameObject gameObject = (GameObject)Object.Instantiate(Resources.Load("InputManagerController"));
 			gameObject.name = "InputManagerController";
-			Object.DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
+			FengGameManagerMKII.InputManager = gameObject.GetComponent<FengCustomInputs>();
 		}
-	}
+    }
 }

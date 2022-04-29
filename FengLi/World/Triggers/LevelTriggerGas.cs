@@ -10,12 +10,12 @@ public class LevelTriggerGas : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player")
 		{
-			if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+			if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 			{
 				other.gameObject.GetComponent<HERO>().fillGas();
 				Object.Destroy(base.gameObject);
 			}
-			else if (other.gameObject.GetComponent<HERO>().photonView.isMine)
+			else if (other.gameObject.GetComponent<HERO>().photonView.IsMine)
 			{
 				other.gameObject.GetComponent<HERO>().fillGas();
 				Object.Destroy(base.gameObject);

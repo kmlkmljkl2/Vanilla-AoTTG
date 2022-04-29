@@ -10,7 +10,7 @@ public class LevelTriggerHint : MonoBehaviour
 
 	private void Start()
 	{
-		if (!LevelInfo.getInfo(FengGameManagerMKII.level).hint)
+		if (!LevelInfo.getInfo(FengGameManagerMKII.Level).hint)
 		{
 			base.enabled = false;
 		}
@@ -19,34 +19,34 @@ public class LevelTriggerHint : MonoBehaviour
 			switch (myhint)
 			{
 			case HintType.DODGE:
-				content = "Press [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.dodge] + "[-] to Dodge.";
+				content = "Press [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.dodge] + "[-] to Dodge.";
 				break;
 			case HintType.ATTACK:
-				content = "Press [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.attack0] + "[-] to Attack. \nPress [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.attack1] + "[-] to use special attack.\n***You can only kill a titan by slashing his [FA5858]NAPE[-].***\n\n";
+				content = "Press [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.attack0] + "[-] to Attack. \nPress [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.attack1] + "[-] to use special attack.\n***You can only kill a titan by slashing his [FA5858]NAPE[-].***\n\n";
 				break;
 			case HintType.MOVE:
-				content = "Hello soldier!\nWelcome to Attack On Titan Tribute Game!\n Press [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.up] + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.left] + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.down] + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.right] + "[-] to Move.";
+				content = "Hello soldier!\nWelcome to Attack On Titan Tribute Game!\n Press [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.up] + FengGameManagerMKII.InputManager.inputString[InputCode.left] + FengGameManagerMKII.InputManager.inputString[InputCode.down] + FengGameManagerMKII.InputManager.inputString[InputCode.right] + "[-] to Move.";
 				break;
 			case HintType.TELE:
 				content = "Move to [82FA58]green warp point[-] to proceed.";
 				break;
 			case HintType.CAMA:
-				content = "Press [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.camera] + "[-] to change camera mode\nPress [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.hideCursor] + "[-] to hide or show the cursor.";
+				content = "Press [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.camera] + "[-] to change camera mode\nPress [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.hideCursor] + "[-] to hide or show the cursor.";
 				break;
 			case HintType.JUMP:
-				content = "Press [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.jump] + "[-] to Jump.";
+				content = "Press [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.jump] + "[-] to Jump.";
 				break;
 			case HintType.JUMP2:
-				content = "Press [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.up] + "[-] towards a wall to perform a wall-run.";
+				content = "Press [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.up] + "[-] towards a wall to perform a wall-run.";
 				break;
 			case HintType.HOOK:
-				content = "Press and Hold[F7D358] " + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.leftRope] + "[-] or [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.rightRope] + "[-] to launch your grapple.\nNow Try hooking to the [>3<] box. ";
+				content = "Press and Hold[F7D358] " + FengGameManagerMKII.InputManager.inputString[InputCode.leftRope] + "[-] or [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.rightRope] + "[-] to launch your grapple.\nNow Try hooking to the [>3<] box. ";
 				break;
 			case HintType.HOOK2:
-				content = "Press and Hold[F7D358] " + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.bothRope] + "[-] to launch both of your grapples at the same Time.\n\nNow aim between the two black blocks. \nYou will see the mark '<' and '>' appearing on the blocks. \nThen press " + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.bothRope] + " to hook the blocks.";
+				content = "Press and Hold[F7D358] " + FengGameManagerMKII.InputManager.inputString[InputCode.bothRope] + "[-] to launch both of your grapples at the same Time.\n\nNow aim between the two black blocks. \nYou will see the mark '<' and '>' appearing on the blocks. \nThen press " + FengGameManagerMKII.InputManager.inputString[InputCode.bothRope] + " to hook the blocks.";
 				break;
 			case HintType.SUPPLY:
-				content = "Press [F7D358]" + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.reload] + "[-] to reload your blades.\n Move to the supply station to refill your gas and blades.";
+				content = "Press [F7D358]" + FengGameManagerMKII.InputManager.inputString[InputCode.reload] + "[-] to reload your blades.\n Move to the supply station to refill your gas and blades.";
 				break;
 			}
 		}

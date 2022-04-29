@@ -8,8 +8,9 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 		MouseX,
 		MouseY
 	}
+	public static IN_GAME_MAIN_CAMERA Camera { get; private set; }
 
-	public static GAMETYPE gametype = GAMETYPE.STOP;
+	public static GameType GameType = GameType.Stop;
 
 	public static GAMEMODE gamemode;
 
@@ -35,7 +36,7 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 
 	public static STEREO_3D_TYPE stereoType;
 
-	public static DayLight dayLight = DayLight.Dawn;
+	public static DayLight DayLight = DayLight.Dawn;
 
 	public FengCustomInputs inputManager;
 
@@ -177,16 +178,17 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 		{
 			GetComponent<TiltShift>().enabled = true;
 		}
+		Camera = this;
 	}
 
 	private void Start()
 	{
-		GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().addCamera(this);
+		GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().AddCamera(this);
 		isPausing = false;
 		sensitivityMulti = PlayerPrefs.GetFloat("MouseSensitivity");
 		invertY = PlayerPrefs.GetInt("invertMouseY");
-		inputManager = GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>();
-		setDayLight(dayLight);
+		inputManager = FengGameManagerMKII.InputManager;
+		setDayLight(DayLight);
 		locker = GameObject.Find("locker");
 		if (PlayerPrefs.HasKey("cameraTilt"))
 		{
@@ -221,8 +223,8 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 
 	public void setDayLight(DayLight val)
 	{
-		dayLight = val;
-		if (dayLight == DayLight.Night)
+		DayLight = val;
+		if (DayLight == DayLight.Night)
 		{
 			GameObject gameObject = (GameObject)Object.Instantiate(Resources.Load("flashlight"));
 			gameObject.transform.parent = base.transform;
@@ -232,13 +234,13 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 			GameObject.Find("mainLight").GetComponent<Light>().color = FengColor.nightLight;
 			base.gameObject.GetComponent<Skybox>().material = skyBoxNIGHT;
 		}
-		if (dayLight == DayLight.Day)
+		if (DayLight == DayLight.Day)
 		{
 			RenderSettings.ambientLight = FengColor.dayAmbientLight;
 			GameObject.Find("mainLight").GetComponent<Light>().color = FengColor.dayLight;
 			base.gameObject.GetComponent<Skybox>().material = skyBoxDAY;
 		}
-		if (dayLight == DayLight.Dawn)
+		if (DayLight == DayLight.Dawn)
 		{
 			RenderSettings.ambientLight = FengColor.dawnAmbientLight;
 			GameObject.Find("mainLight").GetComponent<Light>().color = FengColor.dawnAmbientLight;
@@ -253,7 +255,7 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 		gameObject.transform.localPosition = new Vector3((int)((float)(-Screen.width) * 0.5f) + 14, (int)((float)(-Screen.height) * 0.5f), 0f);
 		gameObject = GameObject.Find("LabelInfoBottomRight");
 		gameObject.transform.localPosition = new Vector3((int)((float)Screen.width * 0.5f), (int)((float)(-Screen.height) * 0.5f), 0f);
-		gameObject.GetComponent<UILabel>().text = "Pause : " + GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().inputString[InputCode.pause] + " ";
+		gameObject.GetComponent<UILabel>().text = "Pause : " + FengGameManagerMKII.InputManager.inputString[InputCode.pause] + " ";
 		gameObject = GameObject.Find("LabelInfoTopCenter");
 		gameObject.transform.localPosition = new Vector3(0f, (int)((float)Screen.height * 0.5f), 0f);
 		gameObject = GameObject.Find("LabelInfoTopRight");
@@ -267,7 +269,7 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 		{
 			GameObject.Find("Chatroom").GetComponent<InRoomChat>().setPosition();
 		}
-		if (!usingTitan || gametype == GAMETYPE.SINGLE)
+		if (!usingTitan || GameType == GameType.Single)
 		{
 			GameObject.Find("skill_cd_bottom").transform.localPosition = new Vector3(0f, (int)((float)(-Screen.height) * 0.5f + 5f), 0f);
 			GameObject.Find("GasUI").transform.localPosition = GameObject.Find("skill_cd_bottom").transform.localPosition;
@@ -292,11 +294,11 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 		}
 		if (main_object != null && main_object.GetComponent<HERO>() != null)
 		{
-			if (gametype == GAMETYPE.SINGLE)
+			if (GameType == GameType.Single)
 			{
 				main_object.GetComponent<HERO>().setSkillHUDPosition();
 			}
-			else if (main_object.GetPhotonView() != null && main_object.GetPhotonView().isMine)
+			else if (main_object.GetPhotonView() != null && main_object.GetPhotonView().IsMine)
 			{
 				main_object.GetComponent<HERO>().setSkillHUDPosition();
 			}
@@ -332,7 +334,7 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 
 	private void reset()
 	{
-		if (gametype == GAMETYPE.SINGLE)
+		if (GameType == GameType.Single)
 		{
 			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().restartGameSingle();
 		}
@@ -402,7 +404,7 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 		}
 	}
 
-	public void update()
+	public void Update()
 	{
 		if (flashDuration > 0f)
 		{
@@ -414,13 +416,13 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 			GameObject gameObject = GameObject.Find("flash");
 			gameObject.GetComponent<UISprite>().alpha = flashDuration * 0.5f;
 		}
-		if (gametype == GAMETYPE.STOP)
+		if (GameType == GameType.Stop)
 		{
 			Screen.showCursor = true;
 			Screen.lockCursor = false;
 			return;
 		}
-		if (gametype != 0 && gameOver)
+		if (GameType != 0 && gameOver)
 		{
 			if (inputManager.isInputDown[InputCode.attack1])
 			{
@@ -488,7 +490,7 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 			isPausing = !isPausing;
 			if (isPausing)
 			{
-				if (gametype == GAMETYPE.SINGLE)
+				if (GameType == GameType.Single)
 				{
 					Time.timeScale = 0f;
 				}
@@ -497,9 +499,9 @@ public class IN_GAME_MAIN_CAMERA : MonoBehaviour
 				NGUITools.SetActive(gameObject2.GetComponent<UIReferArray>().panels[1], state: true);
 				NGUITools.SetActive(gameObject2.GetComponent<UIReferArray>().panels[2], state: false);
 				NGUITools.SetActive(gameObject2.GetComponent<UIReferArray>().panels[3], state: false);
-				GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().showKeyMap();
-				GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().justUPDATEME();
-				GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().menuOn = true;
+				FengGameManagerMKII.InputManager.showKeyMap();
+				FengGameManagerMKII.InputManager.justUPDATEME();
+				FengGameManagerMKII.InputManager.menuOn = true;
 				Screen.showCursor = true;
 				Screen.lockCursor = false;
 			}

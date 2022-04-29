@@ -24,7 +24,7 @@ public class PickupItem : Photon.MonoBehaviour, IPunObservable
 	public void OnTriggerEnter(Collider other)
 	{
 		PhotonView component = other.GetComponent<PhotonView>();
-		if (PickupOnTrigger && component != null && component.isMine)
+		if (PickupOnTrigger && component != null && component.IsMine)
 		{
 			Pickup();
 		}

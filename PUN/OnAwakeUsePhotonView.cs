@@ -6,7 +6,7 @@ public class OnAwakeUsePhotonView : Photon.MonoBehaviour
 {
 	private void Awake()
 	{
-		if (base.photonView.isMine)
+		if (base.photonView.IsMine)
 		{
 			base.photonView.RPC("OnAwakeRPC", PhotonTargets.All);
 		}
@@ -14,7 +14,7 @@ public class OnAwakeUsePhotonView : Photon.MonoBehaviour
 
 	private void Start()
 	{
-		if (base.photonView.isMine)
+		if (base.photonView.IsMine)
 		{
 			base.photonView.RPC("OnAwakeRPC", PhotonTargets.All, (byte)1);
 		}

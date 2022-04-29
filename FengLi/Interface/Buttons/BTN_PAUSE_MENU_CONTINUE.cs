@@ -4,7 +4,7 @@ public class BTN_PAUSE_MENU_CONTINUE : MonoBehaviour
 {
 	private void OnClick()
 	{
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			Time.timeScale = 1f;
 		}
@@ -17,7 +17,7 @@ public class BTN_PAUSE_MENU_CONTINUE : MonoBehaviour
 		{
 			Screen.showCursor = true;
 			Screen.lockCursor = true;
-			GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().menuOn = false;
+			FengGameManagerMKII.InputManager.menuOn = false;
 			GameObject.Find("MainCamera").GetComponent<SpectatorMovement>().disable = false;
 			GameObject.Find("MainCamera").GetComponent<MouseLook>().disable = false;
 			return;
@@ -33,7 +33,7 @@ public class BTN_PAUSE_MENU_CONTINUE : MonoBehaviour
 			Screen.showCursor = false;
 			Screen.lockCursor = false;
 		}
-		GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().menuOn = false;
-		GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().justUPDATEME();
+		FengGameManagerMKII.InputManager.menuOn = false;
+		FengGameManagerMKII.InputManager.justUPDATEME();
 	}
 }

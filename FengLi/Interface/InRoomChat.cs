@@ -23,6 +23,7 @@ public partial class InRoomChat : Photon.MonoBehaviour
 	public void Start()
 	{
 		setPosition();
+		FengGameManagerMKII.InroomChat = this;
 	}
 
 	public void setPosition()
@@ -57,42 +58,45 @@ public partial class InRoomChat : Photon.MonoBehaviour
 					GUI.FocusControl(string.Empty);
 					return;
                 }
-				if (inputLine.Length > 7 && inputLine.Substring(0, 7) == "/kick #")
-				{
-					if (inputLine.Remove(0, 7) == PhotonNetwork.MasterClient.ID.ToString())
-					{
-						GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("error:can't kick master client.");
-					}
-					else if (inputLine.Remove(0, 7) == PhotonNetwork.Player.ID.ToString())
-					{
-						GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("error:can't kick yourself.");
-					}
-					else
-					{
-						bool flag = false;
-						PhotonPlayer[] playerList = PhotonNetwork.PlayerList;
-						foreach (PhotonPlayer photonPlayer in playerList)
-						{
-							if (photonPlayer.ID.ToString() == inputLine.Remove(0, 7))
-							{
-								flag = true;
-								break;
-							}
-						}
-						if (!flag)
-						{
-							GameObject.Find("Chatroom").GetComponent<InRoomChat>().AddLine("error:no such player.");
-						}
-						else
-						{
-							GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("Chat", PhotonTargets.All, inputLine, LoginFengKAI.player.name);
-						}
-					}
-				}
-				else
-				{
-					GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("Chat", PhotonTargets.All, inputLine, LoginFengKAI.player.name);
-				}
+				//True Gem
+				//if (inputLine.Length > 7 && inputLine.Substring(0, 7) == "/kick #")
+				//{
+				//	if (inputLine.Remove(0, 7) == PhotonNetwork.MasterClient.ID.ToString())
+				//	{
+				//		AddLine("error:can't kick master client.");
+				//	}
+				//	else if (inputLine.Remove(0, 7) == PhotonNetwork.Player.ID.ToString())
+				//	{
+				//		AddLine("error:can't kick yourself.");
+				//	}
+				//	else
+				//	{
+				//		bool flag = false;
+				//		PhotonPlayer[] playerList = PhotonNetwork.PlayerList;
+				//		foreach (PhotonPlayer photonPlayer in playerList)
+				//		{
+				//			if (photonPlayer.ID.ToString() == inputLine.Remove(0, 7))
+				//			{
+				//				flag = true;
+				//				break;
+				//			}
+				//		}
+				//		if (!flag)
+				//		{
+				//			AddLine("error:no such player.");
+				//		}
+				//		else
+				//		{
+				//			GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("Chat", PhotonTargets.All, inputLine, LoginFengKAI.player.name);
+				//		}
+				//	}
+				//}
+				//else
+				//{
+				//	GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("Chat", PhotonTargets.All, inputLine, LoginFengKAI.player.name);
+				//}
+				FengGameManagerMKII.Instance.photonView.RPC("Chat", PhotonTargets.All, inputLine, LoginFengKAI.player.name);
+
 				inputLine = string.Empty;
 				GUI.FocusControl(string.Empty);
 				return;

@@ -6,7 +6,7 @@ public class BTN_BackToMain : MonoBehaviour
 	{
 		NGUITools.SetActive(base.transform.parent.gameObject, state: false);
 		NGUITools.SetActive(GameObject.Find("UIRefer").GetComponent<UIMainReferences>().panelMain, state: true);
-		GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().menuOn = false;
+		FengGameManagerMKII.InputManager.menuOn = false;
 		PhotonNetwork.Disconnect();
 	}
 }

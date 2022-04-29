@@ -10,15 +10,15 @@ public class BTN_START_MULTI_SERVER : MonoBehaviour
 		string selection = GameObject.Find("PopupListMap").GetComponent<UIPopupList>().selection;
 		string text2 = (GameObject.Find("CheckboxHard").GetComponent<UICheckbox>().isChecked ? "hard" : ((!GameObject.Find("CheckboxAbnormal").GetComponent<UICheckbox>().isChecked) ? "normal" : "abnormal"));
 		string text3 = string.Empty;
-		if (IN_GAME_MAIN_CAMERA.dayLight == DayLight.Day)
+		if (IN_GAME_MAIN_CAMERA.DayLight == DayLight.Day)
 		{
 			text3 = "day";
 		}
-		if (IN_GAME_MAIN_CAMERA.dayLight == DayLight.Dawn)
+		if (IN_GAME_MAIN_CAMERA.DayLight == DayLight.Dawn)
 		{
 			text3 = "dawn";
 		}
-		if (IN_GAME_MAIN_CAMERA.dayLight == DayLight.Night)
+		if (IN_GAME_MAIN_CAMERA.DayLight == DayLight.Night)
 		{
 			text3 = "night";
 		}

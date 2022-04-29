@@ -26,14 +26,14 @@ public class supplyCheck : MonoBehaviour
 			{
 				continue;
 			}
-			if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+			if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 			{
 				if (Vector3.Distance(gameObject.transform.position, base.transform.position) < 1.5f)
 				{
 					gameObject.GetComponent<HERO>().getSupply();
 				}
 			}
-			else if (gameObject.GetPhotonView().isMine && Vector3.Distance(gameObject.transform.position, base.transform.position) < 1.5f)
+			else if (gameObject.GetPhotonView().IsMine && Vector3.Distance(gameObject.transform.position, base.transform.position) < 1.5f)
 			{
 				gameObject.GetComponent<HERO>().getSupply();
 			}

@@ -19,7 +19,7 @@ public class SmoothSyncMovement : Photon.MonoBehaviour
 		{
 			Debug.LogWarning(string.Concat(this, " is not observed by this object's photonView! OnPhotonSerializeView() in this class won't be used."));
 		}
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			base.enabled = false;
 		}
@@ -43,7 +43,7 @@ public class SmoothSyncMovement : Photon.MonoBehaviour
 
 	public void Update()
 	{
-		if (!disabled && !base.photonView.isMine)
+		if (!disabled && !base.photonView.IsMine)
 		{
 			base.transform.position = Vector3.Lerp(base.transform.position, correctPlayerPos, Time.deltaTime * SmoothingDelay);
 			base.transform.rotation = Quaternion.Lerp(base.transform.rotation, correctPlayerRot, Time.deltaTime * SmoothingDelay);

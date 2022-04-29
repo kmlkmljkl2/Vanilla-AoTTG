@@ -16,13 +16,13 @@ public class SelfDestroy : Photon.MonoBehaviour
 		{
 			return;
 		}
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			Object.Destroy(base.gameObject);
 		}
 		else
 		{
-			if (IN_GAME_MAIN_CAMERA.gametype != GAMETYPE.MULTIPLAYER)
+			if (IN_GAME_MAIN_CAMERA.GameType != GameType.Multiplayer)
 			{
 				return;
 			}
@@ -32,7 +32,7 @@ public class SelfDestroy : Photon.MonoBehaviour
 				{
 					Object.Destroy(base.gameObject);
 				}
-				else if (base.photonView.isMine)
+				else if (base.photonView.IsMine)
 				{
 					PhotonNetwork.Destroy(base.gameObject);
 				}

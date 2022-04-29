@@ -28,6 +28,6 @@ public class MoveByKeys : Photon.MonoBehaviour
 
 	private void Start()
 	{
-		base.enabled = base.photonView.isMine;
+		base.enabled = base.photonView.IsMine;
 	}
 }

@@ -34,7 +34,7 @@ public class ShowInfoOfPlayer : Photon.MonoBehaviour
 			tm.fontSize = 0;
 			tm.anchor = TextAnchor.MiddleCenter;
 		}
-		if (!DisableOnOwnObjects && base.photonView.isMine)
+		if (!DisableOnOwnObjects && base.photonView.IsMine)
 		{
 			base.enabled = false;
 		}
@@ -74,7 +74,7 @@ public class ShowInfoOfPlayer : Photon.MonoBehaviour
 		}
 		else if (base.photonView.isSceneView)
 		{
-			if (!DisableOnOwnObjects && base.photonView.isMine)
+			if (!DisableOnOwnObjects && base.photonView.IsMine)
 			{
 				base.enabled = false;
 				textGo.SetActive(value: false);

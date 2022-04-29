@@ -157,7 +157,7 @@ public partial class HERO
     [RPC]
     public void netDie(Vector3 v, bool isBite, int viewID = -1, string titanName = "", bool killByTitan = true)
     {
-        if (base.photonView.isMine && titanForm && eren_titan != null)
+        if (base.photonView.IsMine && titanForm && eren_titan != null)
         {
             eren_titan.GetComponent<TITAN_EREN>().lifeTime = 0.1f;
         }
@@ -170,7 +170,7 @@ public partial class HERO
             bulletRight.GetComponent<Bullet>().removeMe();
         }
         meatDie.Play();
-        if (!useGun && (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE || base.photonView.isMine))
+        if (!useGun && (IN_GAME_MAIN_CAMERA.GameType == GameType.Single || base.photonView.IsMine))
         {
             leftbladetrail.Deactivate();
             rightbladetrail.Deactivate();
@@ -179,7 +179,7 @@ public partial class HERO
         }
         falseAttack();
         breakApart(v, isBite);
-        if (base.photonView.isMine)
+        if (base.photonView.IsMine)
         {
             currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setSpectorMode(val: false);
             currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().gameOver = true;
@@ -190,7 +190,7 @@ public partial class HERO
         transform.parent = null;
         transform.GetComponent<AudioSource>().Play();
         base.gameObject.GetComponent<SmoothSyncMovement>().disabled = true;
-        if (base.photonView.isMine)
+        if (base.photonView.IsMine)
         {
             PhotonNetwork.RemoveRPCs(base.photonView);
             PhotonNetwork.Player.SetCustomProperties(new Hashtable {
@@ -222,7 +222,7 @@ public partial class HERO
                 GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().sendKillInfo((!(titanName == string.Empty)) ? true : false, titanName, t2: false, (string)PhotonNetwork.Player.CustomProperties[PhotonPlayerProperty.name]);
             }
         }
-        if (base.photonView.isMine)
+        if (base.photonView.IsMine)
         {
             PhotonNetwork.Destroy(base.photonView);
         }
@@ -231,7 +231,7 @@ public partial class HERO
     [RPC]
     private void netDie2(int viewID = -1, string titanName = "")
     {
-        if (base.photonView.isMine)
+        if (base.photonView.IsMine)
         {
             PhotonNetwork.RemoveRPCs(base.photonView);
             if (titanForm && eren_titan != null)
@@ -251,7 +251,7 @@ public partial class HERO
         Transform transform = base.transform.Find("audio_die");
         transform.parent = null;
         transform.GetComponent<AudioSource>().Play();
-        if (base.photonView.isMine)
+        if (base.photonView.IsMine)
         {
             currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setMainObject(null);
             currentCamera.GetComponent<IN_GAME_MAIN_CAMERA>().setSpectorMode(val: true);
@@ -261,7 +261,7 @@ public partial class HERO
         falseAttack();
         hasDied = true;
         base.gameObject.GetComponent<SmoothSyncMovement>().disabled = true;
-        if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && base.photonView.isMine)
+        if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && base.photonView.IsMine)
         {
             PhotonNetwork.RemoveRPCs(base.photonView);
             PhotonNetwork.Player.SetCustomProperties(new Hashtable {
@@ -293,9 +293,9 @@ public partial class HERO
             }
             GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().photonView.RPC("someOneIsDead", PhotonTargets.MasterClient, (!(titanName == string.Empty)) ? 1 : 0);
         }
-        GameObject gameObject = ((IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("hitMeat2"))) : PhotonNetwork.Instantiate("hitMeat2", base.transform.position, Quaternion.Euler(270f, 0f, 0f), 0));
+        GameObject gameObject = ((IN_GAME_MAIN_CAMERA.GameType == GameType.Single) ? ((GameObject)UnityEngine.Object.Instantiate(Resources.Load("hitMeat2"))) : PhotonNetwork.Instantiate("hitMeat2", base.transform.position, Quaternion.Euler(270f, 0f, 0f), 0));
         gameObject.transform.position = base.transform.position;
-        if (base.photonView.isMine)
+        if (base.photonView.IsMine)
         {
             PhotonNetwork.Destroy(base.photonView);
         }
@@ -358,7 +358,7 @@ public partial class HERO
     [RPC]
     public void blowAway(Vector3 force)
     {
-        if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE || base.photonView.isMine)
+        if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single || base.photonView.IsMine)
         {
             base.rigidbody.AddForce(force, ForceMode.Impulse);
             base.transform.LookAt(base.transform.position);

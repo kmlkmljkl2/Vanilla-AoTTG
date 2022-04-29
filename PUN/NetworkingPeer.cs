@@ -121,7 +121,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 	{
 		get
 		{
-			if (mRoomToGetInto != null && mRoomToGetInto.isLocalClientInside)
+			if (mRoomToGetInto != null && mRoomToGetInto.IsLocalClientInside)
 			{
 				return mRoomToGetInto;
 			}
@@ -347,7 +347,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 	private void LeftRoomCleanup()
 	{
 		bool flag = mRoomToGetInto != null;
-		bool flag2 = ((mRoomToGetInto == null) ? PhotonNetwork.AutoCleanUpPlayerObjects : mRoomToGetInto.autoCleanUp);
+		bool flag2 = ((mRoomToGetInto == null) ? PhotonNetwork.AutoCleanUpPlayerObjects : mRoomToGetInto.AutoCleanUp);
 		hasSwitchedMC = false;
 		mRoomToGetInto = null;
 		mActors = new Dictionary<int, PhotonPlayer>();
@@ -496,7 +496,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			Debug.LogError("HandleEventLeave for player ID: " + actorID + " has no PhotonPlayer!");
 		}
 		CheckMasterClient(actorID);
-		if (mCurrentGame != null && mCurrentGame.autoCleanUp)
+		if (mCurrentGame != null && mCurrentGame.AutoCleanUp)
 		{
 			DestroyPlayerObjects(actorID, localOnly: true);
 		}
@@ -649,7 +649,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		else
 		{
 			State = global::PeerState.Joined;
-			mRoomToGetInto.isLocalClientInside = true;
+			mRoomToGetInto.IsLocalClientInside = true;
 			ExitGames.Client.Photon.Hashtable pActorProperties = (ExitGames.Client.Photon.Hashtable)operationResponse[249];
 			ExitGames.Client.Photon.Hashtable gameProperties = (ExitGames.Client.Photon.Hashtable)operationResponse[248];
 			ReadoutProperties(gameProperties, pActorProperties, 0);
@@ -871,11 +871,11 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 				State = global::PeerState.Joining;
 				if (mLastJoinType == JoinType.JoinGame || mLastJoinType == JoinType.JoinRandomGame || mLastJoinType == JoinType.JoinOrCreateOnDemand)
 				{
-					OpJoinRoom(mRoomToGetInto.name, mRoomOptionsForCreate, mRoomToEnterLobby, mLastJoinType == JoinType.JoinOrCreateOnDemand);
+					OpJoinRoom(mRoomToGetInto.PhotonName, mRoomOptionsForCreate, mRoomToEnterLobby, mLastJoinType == JoinType.JoinOrCreateOnDemand);
 				}
 				else if (mLastJoinType == JoinType.CreateGame)
 				{
-					OpCreateGame(mRoomToGetInto.name, mRoomOptionsForCreate, mRoomToEnterLobby);
+					OpCreateGame(mRoomToGetInto.PhotonName, mRoomOptionsForCreate, mRoomToEnterLobby);
 				}
 			}
 			break;
@@ -936,7 +936,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			string text2 = (string)operationResponse[byte.MaxValue];
 			if (!string.IsNullOrEmpty(text2))
 			{
-				mRoomToGetInto.name = text2;
+				mRoomToGetInto.PhotonName = text2;
 			}
 			mGameserver = (string)operationResponse[230];
 			DisconnectToReconnect();
@@ -983,7 +983,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			else
 			{
 				string name = (string)operationResponse[byte.MaxValue];
-				mRoomToGetInto.name = name;
+				mRoomToGetInto.PhotonName = name;
 				mGameserver = (string)operationResponse[230];
 				DisconnectToReconnect();
 			}
@@ -1286,7 +1286,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			{
 				string text = (string)item2.Key;
 				RoomInfo roomInfo = new RoomInfo(text, (ExitGames.Client.Photon.Hashtable)item2.Value);
-				if (roomInfo.removedFromList)
+				if (roomInfo.RemovedFromList)
 				{
 					mGameList.Remove(text);
 				}
@@ -1931,7 +1931,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 		int instantiationId = photonView.instantiationId;
 		if (!localOnly)
 		{
-			if (!photonView.isMine && (!mLocalActor.IsMasterClient || mActors.ContainsKey(ownerActorNr)))
+			if (!photonView.IsMine && (!mLocalActor.IsMasterClient || mActors.ContainsKey(ownerActorNr)))
 			{
 				Debug.LogError("Failed to 'network-remove' GameObject. Client is neither owner nor masterClient taking over for owner who left: " + photonView);
 				return;
@@ -2836,11 +2836,11 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
 	protected internal void LoadLevelIfSynced()
 	{
-		if (!PhotonNetwork.AutomaticallySyncScene || PhotonNetwork.IsMasterClient || PhotonNetwork.Room == null || !PhotonNetwork.Room.customProperties.ContainsKey("curScn"))
+		if (!PhotonNetwork.AutomaticallySyncScene || PhotonNetwork.IsMasterClient || PhotonNetwork.Room == null || !PhotonNetwork.Room.CustomProperties.ContainsKey("curScn"))
 		{
 			return;
 		}
-		object obj = PhotonNetwork.Room.customProperties["curScn"];
+		object obj = PhotonNetwork.Room.CustomProperties["curScn"];
 		if (obj is int)
 		{
 			if (Application.loadedLevel != (int)obj)
@@ -2865,9 +2865,9 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 			Debug.LogError("Parameter levelId can't be null!");
 			return;
 		}
-		if (PhotonNetwork.Room.customProperties.ContainsKey("curScn"))
+		if (PhotonNetwork.Room.CustomProperties.ContainsKey("curScn"))
 		{
-			object obj = PhotonNetwork.Room.customProperties["curScn"];
+			object obj = PhotonNetwork.Room.CustomProperties["curScn"];
 			if ((obj is int && Application.loadedLevel == (int)obj) || (obj is string && Application.loadedLevelName.Equals((string)obj)))
 			{
 				return;

@@ -180,7 +180,6 @@ public static class PhotonNetwork
             }
         }
     }
-
     public static Room Room
     {
         get
@@ -303,11 +302,11 @@ public static class PhotonNetwork
             {
                 return 0;
             }
-            return Room.maxPlayers;
+            return Room.MaxPlayers;
         }
         set
         {
-            Room.maxPlayers = value;
+            Room.MaxPlayers = value;
         }
     }
 
@@ -978,7 +977,7 @@ public static class PhotonNetwork
                 customProperties[(string)key] = null;
             }
         }
-        if (Room != null && Room.isLocalClientInside)
+        if (Room != null && Room.IsLocalClientInside)
         {
             Player.SetCustomProperties(customProperties);
         }

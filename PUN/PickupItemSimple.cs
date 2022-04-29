@@ -13,7 +13,7 @@ public class PickupItemSimple : Photon.MonoBehaviour
 	public void OnTriggerEnter(Collider other)
 	{
 		PhotonView component = other.GetComponent<PhotonView>();
-		if (PickupOnCollide && component != null && component.isMine)
+		if (PickupOnCollide && component != null && component.IsMine)
 		{
 			Pickup();
 		}

@@ -12,9 +12,6 @@ public class PanelMain : MonoBehaviour
 
 	private int lang = -1;
 
-	private void OnEnable()
-	{
-	}
 
 	private void showTxt()
 	{

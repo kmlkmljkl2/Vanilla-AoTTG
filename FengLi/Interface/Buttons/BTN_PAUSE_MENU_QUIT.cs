@@ -4,7 +4,7 @@ public class BTN_PAUSE_MENU_QUIT : MonoBehaviour
 {
 	private void OnClick()
 	{
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			Time.timeScale = 1f;
 		}
@@ -14,9 +14,9 @@ public class BTN_PAUSE_MENU_QUIT : MonoBehaviour
 		}
 		Screen.lockCursor = false;
 		Screen.showCursor = true;
-		IN_GAME_MAIN_CAMERA.gametype = GAMETYPE.STOP;
+		IN_GAME_MAIN_CAMERA.GameType = GameType.Stop;
 		GameObject.Find("MultiplayerManager").GetComponent<FengGameManagerMKII>().gameStart = false;
-		GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>().menuOn = false;
+		FengGameManagerMKII.InputManager.menuOn = false;
 		Object.Destroy(GameObject.Find("MultiplayerManager"));
 		Application.LoadLevel("menu");
 	}

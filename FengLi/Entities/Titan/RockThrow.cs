@@ -25,7 +25,7 @@ public class RockThrow : Photon.MonoBehaviour
 		base.transform.Rotate(r);
 		v -= 20f * Vector3.up * Time.deltaTime;
 		base.transform.position += v * Time.deltaTime;
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && !PhotonNetwork.IsMasterClient)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && !PhotonNetwork.IsMasterClient)
 		{
 			return;
 		}
@@ -45,7 +45,7 @@ public class RockThrow : Photon.MonoBehaviour
 				{
 					gameObject.GetComponent<TITAN>().hitAnkle();
 					Vector3 position = base.transform.position;
-					if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+					if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 					{
 						gameObject.GetComponent<TITAN>().hitAnkle();
 					}
@@ -86,7 +86,7 @@ public class RockThrow : Photon.MonoBehaviour
 	private void explore()
 	{
 		GameObject gameObject;
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && PhotonNetwork.IsMasterClient)
 		{
 			gameObject = PhotonNetwork.Instantiate("FX/boom6", base.transform.position, base.transform.rotation, 0);
 			if (base.transform.root.gameObject.GetComponent<EnemyfxIDcontainer>() != null)
@@ -103,7 +103,7 @@ public class RockThrow : Photon.MonoBehaviour
 		float b = 1f - Vector3.Distance(GameObject.Find("MainCamera").transform.position, gameObject.transform.position) * 0.05f;
 		b = Mathf.Min(1f, b);
 		GameObject.Find("MainCamera").GetComponent<IN_GAME_MAIN_CAMERA>().startShake(b, b);
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			Object.Destroy(base.gameObject);
 		}
@@ -118,7 +118,7 @@ public class RockThrow : Photon.MonoBehaviour
 		launched = true;
 		oldP = base.transform.position;
 		v = v1;
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && PhotonNetwork.IsMasterClient)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && PhotonNetwork.IsMasterClient)
 		{
 			base.photonView.RPC("launchRPC", PhotonTargets.Others, v, oldP);
 		}
@@ -150,14 +150,14 @@ public class RockThrow : Photon.MonoBehaviour
 		{
 			return;
 		}
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			if (!hero.GetComponent<HERO>().isGrabbed)
 			{
 				hero.GetComponent<HERO>().die(v.normalized * 1000f + Vector3.up * 50f, isBite: false);
 			}
 		}
-		else if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER && !hero.GetComponent<HERO>().HasDied() && !hero.GetComponent<HERO>().isGrabbed)
+		else if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer && !hero.GetComponent<HERO>().HasDied() && !hero.GetComponent<HERO>().isGrabbed)
 		{
 			hero.GetComponent<HERO>().markDie();
 			int num = -1;

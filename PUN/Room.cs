@@ -3,7 +3,20 @@ using UnityEngine;
 
 public class Room : RoomInfo
 {
-	public new int playerCount
+
+    public int Time
+    {
+        get
+        {
+            var stringarray = PhotonName.Split('`');
+            if (stringarray.Length > 2 && int.TryParse(stringarray[3], out int Time))
+            {
+                return Time;
+            }
+            return 10;
+        }
+    }
+    public new int PlayerCount
 	{
 		get
 		{
@@ -14,24 +27,89 @@ public class Room : RoomInfo
 			return 0;
 		}
 	}
-
-	public new string name
+	public string MapName
+    {
+		get
+        {
+			var stringarray = PhotonName.Split('`');
+			if(stringarray.Length > 1)
+            {
+				return stringarray[1];
+            }
+			return "";
+		}
+	}
+    public int Difficulty
+    {
+        get
+        {
+			var stringarray = PhotonName.Split('`');
+			if (stringarray.Length > 1)
+			{
+				switch(stringarray[2].ToLower())
+                {
+					case "normal":
+						return 0;
+					case "hard":
+						return 1;
+					case "abnormal":
+						return 2;
+                }
+			}
+			return 0;
+        }
+    }
+	public DayLight DayTime
 	{
 		get
 		{
-			return nameField;
+			var stringarray = PhotonName.Split('`');
+			if (stringarray.Length > 3)
+			{
+				switch(stringarray[4].ToLower())
+                {
+					case "day":
+						return DayLight.Day;
+					case "dawn":
+						return DayLight.Dawn;
+					case "night":
+						return DayLight.Night;
+                }
+			}
+			return DayLight.Day;
+		}
+	}
+	public string PhotonName
+    {
+        get
+        {
+            return NameField;
 		}
 		internal set
 		{
-			nameField = value;
+			NameField = value;
 		}
 	}
+	public string RoomName
+    {
+		get
+		{ 
+			var stringarray = PhotonName.Split('`');
+			if(stringarray.Length > 0)
+            {
+                return stringarray[0];
+            }
 
-	public new int maxPlayers
+            return PhotonName;
+		
+		}
+    }
+
+	public new int MaxPlayers
 	{
 		get
 		{
-			return maxPlayersField;
+			return MaxPlayersField;
 		}
 		set
 		{
@@ -44,7 +122,7 @@ public class Room : RoomInfo
 				Debug.LogWarning("Can't set Room.maxPlayers to: " + value + ". Using max value: 255.");
 				value = 255;
 			}
-			if (value != maxPlayersField && !PhotonNetwork.OfflineMode)
+			if (value != MaxPlayersField && !PhotonNetwork.OfflineMode)
 			{
 				PhotonNetwork.NetworkingPeer.OpSetPropertiesOfRoom(new Hashtable { 
 				{
@@ -52,15 +130,15 @@ public class Room : RoomInfo
 					(byte)value
 				} }, broadcast: true, 0);
 			}
-			maxPlayersField = (byte)value;
+			MaxPlayersField = (byte)value;
 		}
 	}
 
-	public new bool open
+	public new bool Open
 	{
 		get
 		{
-			return openField;
+			return OpenField;
 		}
 		set
 		{
@@ -68,7 +146,7 @@ public class Room : RoomInfo
 			{
 				Debug.LogWarning("Can't set open when not in that room.");
 			}
-			if (value != openField && !PhotonNetwork.OfflineMode)
+			if (value != OpenField && !PhotonNetwork.OfflineMode)
 			{
 				PhotonNetwork.NetworkingPeer.OpSetPropertiesOfRoom(new Hashtable { 
 				{
@@ -76,15 +154,15 @@ public class Room : RoomInfo
 					value
 				} }, broadcast: true, 0);
 			}
-			openField = value;
+			OpenField = value;
 		}
 	}
 
-	public new bool visible
+	public new bool Visible
 	{
 		get
 		{
-			return visibleField;
+			return VisibleField;
 		}
 		set
 		{
@@ -92,7 +170,7 @@ public class Room : RoomInfo
 			{
 				Debug.LogWarning("Can't set visible when not in that room.");
 			}
-			if (value != visibleField && !PhotonNetwork.OfflineMode)
+			if (value != VisibleField && !PhotonNetwork.OfflineMode)
 			{
 				PhotonNetwork.NetworkingPeer.OpSetPropertiesOfRoom(new Hashtable { 
 				{
@@ -100,13 +178,13 @@ public class Room : RoomInfo
 					value
 				} }, broadcast: true, 0);
 			}
-			visibleField = value;
+			VisibleField = value;
 		}
 	}
 
-	public string[] propertiesListedInLobby { get; private set; }
+	public string[] PropertiesListedInLobby { get; private set; }
 
-	public bool autoCleanUp => autoCleanUpField;
+	public bool AutoCleanUp => AutoCleanUpField;
 
 	internal Room(string roomName, RoomOptions options)
 		: base(roomName, null)
@@ -115,20 +193,20 @@ public class Room : RoomInfo
 		{
 			options = new RoomOptions();
 		}
-		visibleField = options.isVisible;
-		openField = options.isOpen;
-		maxPlayersField = (byte)options.maxPlayers;
-		autoCleanUpField = false;
+		VisibleField = options.isVisible;
+		OpenField = options.isOpen;
+		MaxPlayersField = (byte)options.maxPlayers;
+		AutoCleanUpField = false;
 		CacheProperties(options.customRoomProperties);
-		propertiesListedInLobby = options.customRoomPropertiesForLobby;
+		PropertiesListedInLobby = options.customRoomPropertiesForLobby;
 	}
 
 	public void SetCustomProperties(Hashtable propertiesToSet)
 	{
 		if (propertiesToSet != null)
 		{
-			base.customProperties.MergeStringKeys(propertiesToSet);
-			base.customProperties.StripKeysWithNullValues();
+			base.CustomProperties.MergeStringKeys(propertiesToSet);
+			base.CustomProperties.StripKeysWithNullValues();
 			Hashtable gameProperties = propertiesToSet.StripToStringKeys();
 			if (!PhotonNetwork.OfflineMode)
 			{
@@ -140,19 +218,21 @@ public class Room : RoomInfo
 
 	public void SetPropertiesListedInLobby(string[] propsListedInLobby)
 	{
-		Hashtable hashtable = new Hashtable();
-		hashtable[(byte)250] = propsListedInLobby;
-		PhotonNetwork.NetworkingPeer.OpSetPropertiesOfRoom(hashtable, broadcast: false, 0);
-		propertiesListedInLobby = propsListedInLobby;
+        Hashtable hashtable = new Hashtable
+        {
+            [(byte)250] = propsListedInLobby
+        };
+        PhotonNetwork.NetworkingPeer.OpSetPropertiesOfRoom(hashtable, broadcast: false, 0);
+		PropertiesListedInLobby = propsListedInLobby;
 	}
 
 	public override string ToString()
 	{
-		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.", nameField, (!visibleField) ? "hidden" : "visible", (!openField) ? "closed" : "open", maxPlayersField, playerCount);
+		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.", NameField, (!VisibleField) ? "hidden" : "visible", (!OpenField) ? "closed" : "open", MaxPlayersField, PlayerCount);
 	}
 
 	public new string ToStringFull()
 	{
-		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", nameField, (!visibleField) ? "hidden" : "visible", (!openField) ? "closed" : "open", maxPlayersField, playerCount, base.customProperties.ToStringFull());
+		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", NameField, (!VisibleField) ? "hidden" : "visible", (!OpenField) ? "closed" : "open", MaxPlayersField, PlayerCount, CustomProperties.ToStringFull());
 	}
 }

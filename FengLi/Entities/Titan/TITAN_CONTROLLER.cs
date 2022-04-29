@@ -20,9 +20,9 @@ public class TITAN_CONTROLLER : MonoBehaviour
 
 	private void Start()
 	{
-		inputManager = GameObject.Find("InputManagerController").GetComponent<FengCustomInputs>();
+		inputManager = FengGameManagerMKII.InputManager;
 		currentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
-		if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.SINGLE)
+		if (IN_GAME_MAIN_CAMERA.GameType == GameType.Single)
 		{
 			base.enabled = false;
 		}

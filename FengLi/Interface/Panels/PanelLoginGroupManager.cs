@@ -30,7 +30,7 @@ public class PanelLoginGroupManager : MonoBehaviour
 
 	private void Start()
 	{
-		pgm = new PanelGroupManager();
+        pgm = new PanelGroupManager();
 		pgm.panelGroup = panels;
 	}
 

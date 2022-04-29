@@ -50,7 +50,7 @@ public partial class FengGameManagerMKII
     [RPC]
     private void RPCLoadLevel()
     {
-        PhotonNetwork.LoadLevel(LevelInfo.getInfo(level).mapName);
+        PhotonNetwork.LoadLevel(LevelInfo.getInfo(Level).mapName);
     }
 
     [RPC]
@@ -144,7 +144,7 @@ public partial class FengGameManagerMKII
     [RPC]
     public void oneTitanDown(string name1 = "", bool onPlayerLeave = false)
     {
-        if (IN_GAME_MAIN_CAMERA.gametype != 0 && !PhotonNetwork.IsMasterClient)
+        if (IN_GAME_MAIN_CAMERA.GameType != 0 && !PhotonNetwork.IsMasterClient)
         {
             return;
         }
@@ -203,11 +203,11 @@ public partial class FengGameManagerMKII
                     return;
                 }
                 wave++;
-                if (LevelInfo.getInfo(level).respawnMode == RespawnMode.NEWROUND && IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER)
+                if (LevelInfo.getInfo(Level).respawnMode == RespawnMode.NEWROUND && IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer)
                 {
                     base.photonView.RPC("respawnHeroInNewRound", PhotonTargets.All);
                 }
-                if (IN_GAME_MAIN_CAMERA.gametype == GAMETYPE.MULTIPLAYER)
+                if (IN_GAME_MAIN_CAMERA.GameType == GameType.Multiplayer)
                 {
                     sendChatContentInfo("<color=#A8FF24>Wave : " + wave + "</color>");
                 }
@@ -229,7 +229,7 @@ public partial class FengGameManagerMKII
                 {
                     rate = 70;
                 }
-                if (!LevelInfo.getInfo(level).punk)
+                if (!LevelInfo.getInfo(Level).punk)
                 {
                     randomSpawnTitan("titanRespawn", rate, wave + 2);
                 }
@@ -267,7 +267,7 @@ public partial class FengGameManagerMKII
                     randomSpawnTitan("titanRespawn", rate2, 1);
                 }
             }
-            else if (LevelInfo.getInfo(level).enemyNumber != -1)
+            else if (LevelInfo.getInfo(Level).enemyNumber != -1)
             {
             }
         }
@@ -321,7 +321,7 @@ public partial class FengGameManagerMKII
             GameObject.Find("LabelResultTitle").GetComponent<UILabel>().text = text6;
             Screen.lockCursor = false;
             Screen.showCursor = true;
-            IN_GAME_MAIN_CAMERA.gametype = GAMETYPE.STOP;
+            IN_GAME_MAIN_CAMERA.GameType = GameType.Stop;
             gameStart = false;
         }
     }

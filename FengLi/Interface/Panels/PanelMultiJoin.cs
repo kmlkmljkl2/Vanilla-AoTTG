@@ -66,8 +66,8 @@ public class PanelMultiJoin : MonoBehaviour
 
 	private string getServerDataString(RoomInfo room)
 	{
-		string[] array = room.name.Split("`"[0]);
-		return ((!(array[5] == string.Empty)) ? "[PWD]" : string.Empty) + array[0] + "/" + array[1] + "/" + array[2] + "/" + array[4] + " " + room.playerCount + "/" + room.maxPlayers;
+		string[] array = room.Name.Split("`"[0]);
+		return ((!(array[5] == string.Empty)) ? "[PWD]" : string.Empty) + array[0] + "/" + array[1] + "/" + array[2] + "/" + array[4] + " " + room.PlayerCount + "/" + room.MaxPlayers;
 	}
 
 	private void showServerList()
@@ -86,7 +86,7 @@ public class PanelMultiJoin : MonoBehaviour
 				{
 					items[num].SetActive(value: true);
 					items[num].GetComponentInChildren<UILabel>().text = getServerDataString(PhotonNetwork.GetRoomList()[num2]);
-					items[num].GetComponentInChildren<BTN_Connect_To_Server_On_List>().roomName = PhotonNetwork.GetRoomList()[num2].name;
+					items[num].GetComponentInChildren<BTN_Connect_To_Server_On_List>().roomName = PhotonNetwork.GetRoomList()[num2].Name;
 				}
 				else
 				{
@@ -104,7 +104,7 @@ public class PanelMultiJoin : MonoBehaviour
 					RoomInfo roomInfo = (RoomInfo)filterRoom[num3];
 					items[num].SetActive(value: true);
 					items[num].GetComponentInChildren<UILabel>().text = getServerDataString(roomInfo);
-					items[num].GetComponentInChildren<BTN_Connect_To_Server_On_List>().roomName = roomInfo.name;
+					items[num].GetComponentInChildren<BTN_Connect_To_Server_On_List>().roomName = roomInfo.Name;
 				}
 				else
 				{
@@ -190,7 +190,7 @@ public class PanelMultiJoin : MonoBehaviour
 		RoomInfo[] roomList = PhotonNetwork.GetRoomList();
 		foreach (RoomInfo roomInfo in roomList)
 		{
-			if (roomInfo.name.ToUpper().Contains(filter.ToUpper()))
+			if (roomInfo.Name.ToUpper().Contains(filter.ToUpper()))
 			{
 				filterRoom.Add(roomInfo);
 			}
